@@ -1,0 +1,17 @@
+<template name="override-atTextInput">
+  <div class="at-input {{#if isValidating}}validating{{/if}} {{#if hasError}}has-error{{/if}} {{#if hasSuccess}}has-success{{/if}} {{#if feedback}}has-feedback{{/if}} uk-margin">
+    <input class="uk-input" type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" placeholder="{{placeholder}}" autocapitalize="none" autocorrect="off">
+    {{#if hasIcon}}
+        <span class="{{iconClass}}"></span>
+    {{/if}}
+    {{#if hasError}}
+      <span>{{errorText}}</span>
+    {{/if}}
+  </div>
+</template>
+
+<template name="override-atPwdFormBtn">
+  <button type="submit" class="at-btn submit {{submitDisabled}} uk-button uk-button-default" id="at-btn">
+    {{buttonText}}
+  </button>
+</template>

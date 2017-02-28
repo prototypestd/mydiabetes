@@ -1,0 +1,26 @@
+<head>
+  <title>myDiabetes</title>
+  
+  <script src="js/jquery.min.js"></script>
+  <script src="js/uikit.min.js"></script>
+</head>
+
+<body>
+	<div>
+		{{> content}}
+	</div>
+			
+			
+	<div id="login-modal" uk-modal>
+		{{> login}}
+	</div>
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="content">
+  {{> Template.dynamic template=main}}
+</template>
