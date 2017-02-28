@@ -22,6 +22,11 @@ Meteor.methods({
     check(predinner, String);
     check(prebed, String);
     check(midnight, String);
+	
+	var today = new Date();
+	var day = today.getDate();
+	var month = today.getMonth()+1;
+	var curDate = day + '/' + month;
  
     // Make sure the user is logged in before inserting a task
     if (! this.userId) {
@@ -30,7 +35,7 @@ Meteor.methods({
  
     Logbook.insert({
       userId: this.userId,
-      date: new Date(), // current time
+      date: curDate, // current time
 	  prebreakfast,
 	  prelunch,
 	  predinner,
