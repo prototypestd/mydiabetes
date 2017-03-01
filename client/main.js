@@ -1,55 +1,21 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-
 import { Logbook } from '../imports/api/Logbook.js';
 
+// Import some stratup functions
 import '../imports/startup/routes.js';
+
+// Import the main page
 import './main.html';
 
+// Import template logics
+import '../imports/ui/logbook.logic.js';
+
+// Global Template Logic
 Template.body.onCreated(function bodyOnCreated() {
   Meteor.subscribe('logbook');
 });
 
-Template.logbook.helpers({
-  curYear() {
-	 var today = new Date();
-	 return today.getFullYear();
-  },
-  tasks() {
-      return Logbook.find({});
-  },
-});
-
-Template.logbook.events({
-  'submit .new-record'(event) {
-    // Prevent default browser form submit
-    event.preventDefault();
- 
-    // Get value from form element
-    const target = event.target;
-    const prebreakfast = target.prebreakfast.value;
-    const prelunch = target.prelunch.value;
-    const predinner = target.predinner.value;
-    const prebed = target.prebed.value;
-    const midnight = target.midnight.value;
- 
-    // Insert a record into the collection
-    Meteor.call('logbook.insert', prebreakfast, prelunch, predinner, prebed, midnight);
- 
-    // Clear form
-    target.text.value = '';
-    target.prebreakfast.value = '';
-    target.prelunch.value = '';
-    target.predinner.value = '';
-    target.prebed.value = '';
-    target.midnight.value = '';
-  },
-  'click .delete'() {
-    Meteor.call('logbook.remove', this._id);
-  },
-});
-
-// Template overrides
 Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');
 Template['override-atTextInput'].replaces('atTextInput');
 
@@ -73,22 +39,5 @@ AccountsTemplates.configure({
     onSubmitHook: loginFunc,
 	onLogoutHook: postLogout
 });
-
-// Collections
-Logbook.schema = new SimpleSchema({
-  userId: {type: String, regEx: SimpleSchema.RegEx.Id},
-  date: {type: String},
-  prebreakfast: {type: Number, optional: true},
-  prelunch: {type: Number, optional: true},
-  predinner: {type: Number, optional: true},
-  prebed: {type: Number, optional: true},
-  midnight: {type: Number, optional: true},
-  bolus1: {type: Number, optional: true},
-  bolus2: {type: Number, optional: true},
-  bolus3: {type: Number, optional: true},
-  basal: {type: Number, optional: true}
-});
-
-Logbook.attachSchema(Logbook.schema);
 
 
