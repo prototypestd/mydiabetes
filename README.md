@@ -1,6 +1,7 @@
 # myDiabetes
 
 [![Code Climate](https://codeclimate.com/github/ReactiveTeam/mydiabetes/badges/gpa.svg)](https://codeclimate.com/github/ReactiveTeam/mydiabetes)
+[![bitHound Code](https://www.bithound.io/github/ReactiveTeam/mydiabetes/badges/code.svg)](https://www.bithound.io/github/ReactiveTeam/mydiabetes)
 
 myDiabetes is an open-source initiative towards improving the management and care of type-1 diabetics mainly within children by providing an easy-to-use interface where they can track their glucose levels & insulin usage, calculate basal and acting insulin, provide an easy-to-understand carb counter, and more within a web app.
 
