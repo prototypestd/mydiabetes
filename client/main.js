@@ -3,6 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import { Logbook } from '../imports/api/Logbook.js';
 
+import '../imports/startup/routes.js';
 import './main.html';
 
 Template.body.onCreated(function bodyOnCreated() {
@@ -10,6 +11,10 @@ Template.body.onCreated(function bodyOnCreated() {
 });
 
 Template.logbook.helpers({
+  curYear() {
+	 var today = new Date();
+	 return today.getFullYear();
+  },
   tasks() {
       return Logbook.find({});
   },
@@ -39,27 +44,10 @@ Template.logbook.events({
     target.prebed.value = '';
     target.midnight.value = '';
   },
+  'click .delete'() {
+    Meteor.call('logbook.remove', this._id);
+  },
 });
-
-// Routing
-BlazeLayout.setRoot('body');
-
-FlowRouter.route('/', {
-  name: 'App_Content',
-  action() {
-	  if(Meteor.user() == undefined){
-		BlazeLayout.render('content', {main: 'dashboard'});
-	  }else{
-		BlazeLayout.render('content', {main: 'index'});
-	  }
-  }
-});
-
-FlowRouter.notFound = {
-  action() {
-    BlazeLayout.render('content', {main: 'App_notFound'});
-  }
-};
 
 // Template overrides
 Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');
