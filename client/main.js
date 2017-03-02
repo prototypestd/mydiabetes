@@ -10,6 +10,7 @@ import './main.html';
 
 // Import template logics
 import '../imports/ui/logbook.logic.js';
+import '../imports/ui/calculator.logic.js';
 
 // Global Template Logic
 Template.body.onCreated(function bodyOnCreated() {
