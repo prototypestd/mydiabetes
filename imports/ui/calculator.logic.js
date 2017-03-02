@@ -5,12 +5,15 @@ Template.calculator.onCreated(function(){
   // our ReactiveVar to it, making it accessible throughout the
   // current template instance.
   this.sensitivityFactor = new ReactiveVar(0);
+  this.carbRatio = new ReactiveVar(0);
 });
 
 Template.calculator.helpers({
 	ISF() {
-		console.log(Template.instance().sensitivityFactor.get());
 		return Template.instance().sensitivityFactor.get();
+	},
+	ICR() {
+		return Template.instance().carbRatio.get();
 	},
 });
 
@@ -34,7 +37,7 @@ Template.calculator.events({
     // Clear form
     target.totalDose.value = '';
   },
-  'submit .calcICR'(event) {
+  'submit .calcICR'(event, template) {
     // Prevent default browser form submit
     event.preventDefault();
  
@@ -44,7 +47,10 @@ Template.calculator.events({
  
     // Insert a record into the collection
     Meteor.call('calculator.calcICR', totalDose, function(error, result) {
-		myISF = result;
+		  if (error)
+			console.log(error);
+		
+		template.carbRatio.set(result);
 	});
  
     // Clear form

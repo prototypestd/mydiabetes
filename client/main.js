@@ -2,6 +2,9 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
 
+import { ICR } from '../imports/api/Users.js';
+import { ISF } from '../imports/api/Users.js';
+
 // Import some stratup functions
 import '../imports/startup/routes.js';
 
