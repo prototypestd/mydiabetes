@@ -1,0 +1,29 @@
+{
+	"lang": "en",
+	"name": "myDiabetes",
+	"description": "To be edited",
+	"shortname": "myDiabetes",
+	"icons": [{
+		"src": "icons/icon_64.png",
+		"sizes": "36x36"
+	},{
+		"src": "icons/icon_48.png",
+		"sizes": "48x48"
+	},{
+		"src": "icons/icon_72.png",
+		"sizes": "72x72"
+	},{
+		"src": "icons/icon_96.png",
+		"sizes": "96x96"
+	},{
+		"src": "icons/icon_144.png",
+		"sizes": "144x144"
+	},{
+		"src": "icons/icon_192.png",
+		"sizes": "192x192"
+	}],
+	"display": "standalone",
+	"theme_color": "#1e87f0",
+	"background_color": "white",
+	"start_url": "/"
+}
