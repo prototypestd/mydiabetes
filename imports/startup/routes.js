@@ -7,7 +7,7 @@ BlazeLayout.setRoot('body');
 FlowRouter.route('/', {
   name: 'App_Content',
   action() {
-	  if(Meteor.user() == undefined){
+	  if(Meteor.user() === undefined){
 		BlazeLayout.render('content', {main: 'dashboard'});
 	  }else{
 		BlazeLayout.render('content', {main: 'index'});
