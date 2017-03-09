@@ -98,24 +98,7 @@
 		<div id="edit-record-modal" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				<h2 class="uk-modal-title">Edit record for {{date}}</h2>
-				<form class="new-record">
-					<div class="uk-margin">
-						<input class="uk-input" type="text" placeholder="pre-Breakfast Bolus" name="prebreakfastbolus">
-					</div>
-					<div class="uk-margin">
-						<input class="uk-input" type="text" placeholder="pre-Lunch Bolus" name="prelunchbolus">
-					</div>
-					<div class="uk-margin">
-						<input class="uk-input" type="text" placeholder="pre-Dinner Bolus" name="predinnerbolus">
-					</div>
-					<div class="uk-margin">
-						<input class="uk-input" type="text" placeholder="pre-Bed Basal" name="prebedbasal">
-					</div>
-					<div class="uk-margin">
-						<input class="uk-input" type="text" placeholder="3AM" name="midnight">
-					</div>
-					<input type="submit" style="display: none;"/>
-				</form>
+				{{> quickForm collection="Logbook" doc=this id=this._id type="update" }}
 			</div>
 		</div>
 	</tr>

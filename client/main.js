@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
+import { SimpleSchema } from 'simpl-schema';
 
 import { ICR } from '../imports/api/Users.js';
 import { ISF } from '../imports/api/Users.js';
@@ -15,6 +16,8 @@ import './main.html';
 import '../imports/ui/logbook.logic.js';
 import '../imports/ui/calculator.logic.js';
 
+AutoForm.debug();
+
 // Global Template Logic
 Template.body.onCreated(function bodyOnCreated() {
   Meteor.subscribe('logbook');
@@ -22,6 +25,8 @@ Template.body.onCreated(function bodyOnCreated() {
 
 Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');
 Template['override-atTextInput'].replaces('atTextInput');
+
+//SimpleSchema.extendOptions(['autoform']);
 
 // User Management
 var loginFunc = function(error, state){

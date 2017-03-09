@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Logbook } from '../api/Logbook.js';
+import SimpleSchema from 'simpl-schema';
 
 Template.logbook.helpers({
   curYear() {
@@ -9,6 +10,14 @@ Template.logbook.helpers({
   tasks() {
       return Logbook.find({});
   },
+});
+
+window.Logbook = Logbook;
+
+Logbook.allow({
+	insert: function () { return true; },
+	update: function () { return true; },
+	remove: function () { return true; }
 });
 
 Template.logbook.events({
@@ -28,7 +37,6 @@ Template.logbook.events({
     Meteor.call('logbook.insert', prebreakfast, prelunch, predinner, prebed, midnight);
  
     // Clear form
-    target.text.value = '';
     target.prebreakfast.value = '';
     target.prelunch.value = '';
     target.predinner.value = '';
@@ -41,7 +49,7 @@ Template.logbook.events({
 });
 
 Logbook.schema = new SimpleSchema({
-  userId: {type: String, regEx: SimpleSchema.RegEx.Id},
+  userId: {type: String},
   date: {type: String},
   prebreakfast: {type: Number, optional: true},
   prelunch: {type: Number, optional: true},
