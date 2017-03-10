@@ -5,6 +5,13 @@ import { check } from 'meteor/check';
 export const Logbook = new Mongo.Collection("logbook");
 
 if (Meteor.isServer) {
+	
+	Logbook.allow({
+		insert: function () { return true; },
+		update: function () { return true; },
+		remove: function () { return true; }
+	});
+	
   // This code only runs on the server
   Meteor.publish('logbook', function tasksPublication() {
     return Logbook.find({

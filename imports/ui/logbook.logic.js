@@ -14,12 +14,6 @@ Template.logbook.helpers({
 
 window.Logbook = Logbook;
 
-Logbook.allow({
-	insert: function () { return true; },
-	update: function () { return true; },
-	remove: function () { return true; }
-});
-
 Template.logbook.events({
   'submit .new-record'(event) {
     // Prevent default browser form submit

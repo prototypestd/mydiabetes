@@ -9,6 +9,10 @@ import { ISF } from '../imports/api/Users.js';
 // Import some stratup functions
 import '../imports/startup/routes.js';
 
+Meteor.startup(function () {
+	Status.setTemplate('uikit');
+});
+
 // Import the main page
 import './main.html';
 
