@@ -6,6 +6,7 @@ Template.calculator.onCreated(function(){
   // current template instance.
   this.sensitivityFactor = new ReactiveVar(0);
   this.carbRatio = new ReactiveVar(0);
+  this.correction = new ReactiveVar(0);
 });
 
 Template.calculator.helpers({
@@ -14,6 +15,9 @@ Template.calculator.helpers({
 	},
 	ICR() {
 		return Template.instance().carbRatio.get();
+	},
+	correction() {
+		return Template.instance().correction.get();
 	},
 });
 
@@ -54,6 +58,27 @@ Template.calculator.events({
 	});
  
     // Clear form
+    target.totalDose.value = '';
+  },
+  'submit .calcCorrection'(event, template) {
+    // Prevent default browser form submit
+    event.preventDefault();
+ 
+    // Get value from form element
+    const target = event.target;
+	const reading = target.reading.value;
+    const totalDose = target.totalDose.value;
+ 
+    // Insert a record into the collection
+    Meteor.call('calculator.calcCorrection', reading, totalDose, function(error, result) {
+		  if (error)
+			console.log(error);
+		
+		template.correction.set(result);
+	});
+ 
+    // Clear form
+	target.reading.value = '';
     target.totalDose.value = '';
   },
 });
