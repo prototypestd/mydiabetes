@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 Meteor.methods({
   'calculator.calcICR'( totalDose ) {
 		var ICR = 450 / totalDose;
-		var r = Math.round(ICR * 100)/100
+		var r = Math.round(ICR * 100)/100;
 		return r;
   },
   'calculator.calcISF'( totalDose ) {
