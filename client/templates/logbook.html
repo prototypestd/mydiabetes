@@ -93,12 +93,22 @@
 		<td>{{predinner}} <br>(Bolus: {{bolus3}}u)</td>
 		<td>{{prebed}} <br>(Basal: {{basal}}u)</td>
 		<td>{{midnight}}</td>
-		<td><a href="#edit-record-modal" class="edit"  uk-toggle><i class="fa fa-pencil"></i></a> <a class="delete"><i class="fa fa-trash"></i></a></td>
+		<td><a href="#edit-record-modal" class="edit"  uk-toggle><i class="fa fa-pencil"></i></a> <a class="delete"><i class="fa fa-trash"></i></a> <a href="#notes-modal" uk-toggle class="notes"><i class="fa fa-sticky-note"></i></a></td>
 		
 		<div id="edit-record-modal" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				<h2 class="uk-modal-title">Edit record for {{date}}</h2>
 				{{> quickForm collection="Logbook" doc=this id=this._id type="update" }}
+			</div>
+		</div>
+		<div id="notes-modal" uk-modal>
+			<div class="uk-modal-dialog uk-modal-body">
+				<h2 class="uk-modal-title">Edit notes for {{date}}</h2>
+				<form>
+					<div class="uk-margin">
+						<textarea></textarea>
+						</div>
+						</form>
 			</div>
 		</div>
 	</tr>
