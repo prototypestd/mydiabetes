@@ -69,13 +69,17 @@ Template.calculator.events({
 	const reading = target.reading.value;
     const totalDose = target.totalDose.value;
  
-    // Insert a record into the collection
-    Meteor.call('calculator.calcCorrection', reading, totalDose, function(error, result) {
-		  if (error)
-			console.log(error);
-		
-		template.correction.set(result);
-	});
+	if(reading > 6){
+		// Insert a record into the collection
+		Meteor.call('calculator.calcCorrection', reading, totalDose, function(error, result) {
+			  if (error)
+				console.log(error);
+			
+			template.correction.set(result);
+		});
+	}else{
+		alert("You don't need to correct anything. \nYour glucose reading is good!");
+	}
  
     // Clear form
 	target.reading.value = '';
