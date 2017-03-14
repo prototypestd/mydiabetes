@@ -41,9 +41,13 @@
 									</tr>
 								</thead>
 								<tbody>
+								{{#if Template.subscriptionsReady}}
 								  {{#each tasks}}
 									{{> logs}}
 								  {{/each}}
+								{{else}}
+									Loading...
+								{{/if}}
 								</tbody>
 							</table>
 						</div>
@@ -56,6 +60,11 @@
 							</div>
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">
+							<h3 class="uk-card-title">Insulin Ratios</h3>
+							<h5>ISF: {{ isf }}mmol/unit</h5>
+							<h5>ICR: {{ icr }}g CHO/unit</h5>
+						</div>
+						<div class="uk-card uk-card-default uk-card-body">
 							<h3 class="uk-card-title">Calculate Correction <sup style="font-size:10px;top:-1em">BETA</sup></h3>
 							<form class="calcCorrection">
 								<div class="uk-margin">
@@ -66,7 +75,7 @@
 								</div>
 								<input type="submit" style="display: none;"/>
 							</form>
-							<h5>{{ correction }}</h5>
+							<h5>Result: {{ correction }}</h5>
 						</div>
 					</div>
 				</div>

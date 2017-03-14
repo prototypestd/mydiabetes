@@ -1,10 +1,8 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
+import { UserInfo } from '../imports/api/Calculator.js';
 import { SimpleSchema } from 'simpl-schema';
-
-import { ICR } from '../imports/api/Users.js';
-import { ISF } from '../imports/api/Users.js';
 
 // Import some stratup functions
 import '../imports/startup/routes.js';
@@ -25,6 +23,7 @@ AutoForm.debug();
 // Global Template Logic
 Template.body.onCreated(function bodyOnCreated() {
   Meteor.subscribe('logbook');
+  Meteor.subscribe('userinfo');
 });
 
 Template['override-atPwdFormBtn'].replaces('atPwdFormBtn');

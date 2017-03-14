@@ -1,9 +1,11 @@
 import { Template } from 'meteor/templating';
 import { Logbook } from '../api/Logbook.js';
+import { UserInfo } from '../api/Calculator.js';
 import SimpleSchema from 'simpl-schema';
 
 Template.logbook.onCreated(function(){
   this.correction = new ReactiveVar(0);
+  this.subscribe("logbook");
 });
 
 Template.logbook.helpers({
@@ -17,9 +19,16 @@ Template.logbook.helpers({
   correction() {
 	  return Template.instance().correction.get();
   },
+  isf() {
+	  return UserInfo.find().map(function(post) { return post.isf; });
+  },
+  icr() {
+	  return UserInfo.find().map(function(post) { return post.icr; });
+  },
 });
 
 window.Logbook = Logbook;
+window.UserInfo = UserInfo;
 
 Template.logbook.events({
   'submit .new-record'(event) {
@@ -135,3 +144,12 @@ Logbook.schema = new SimpleSchema({
 });
 
 Logbook.attachSchema(Logbook.schema);
+
+UserInfo.schema = new SimpleSchema({
+  userId: {type: String},
+  totalDose: {type: Number},
+  icr: {type: Number},
+  isf: {type: Number}
+});
+
+UserInfo.attachSchema(UserInfo.schema);
