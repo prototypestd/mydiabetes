@@ -55,6 +55,19 @@
 									<a href="" class="uk-button uk-button-default uk-margin-small-top">Settings</a>
 							</div>
 						</div>
+						<div class="uk-card uk-card-default uk-card-body">
+							<h3 class="uk-card-title">Calculate Correction <sup style="font-size:10px;top:-1em">BETA</sup></h3>
+							<form class="calcCorrection">
+								<div class="uk-margin">
+									<input class="uk-input" type="text" placeholder="Glucose Reading" name="reading">
+								</div>
+								<div class="uk-margin">
+									<input class="uk-input" type="text" placeholder="Total Dose" name="totalDose">
+								</div>
+								<input type="submit" style="display: none;"/>
+							</form>
+							<h5>{{ correction }}</h5>
+						</div>
 					</div>
 				</div>
 			</div>

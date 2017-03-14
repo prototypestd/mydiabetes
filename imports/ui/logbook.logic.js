@@ -2,6 +2,10 @@ import { Template } from 'meteor/templating';
 import { Logbook } from '../api/Logbook.js';
 import SimpleSchema from 'simpl-schema';
 
+Template.logbook.onCreated(function(){
+  this.correction = new ReactiveVar(0);
+});
+
 Template.logbook.helpers({
   curYear() {
 	 var today = new Date();
@@ -9,6 +13,9 @@ Template.logbook.helpers({
   },
   tasks() {
       return Logbook.find({});
+  },
+  correction() {
+	  return Template.instance().correction.get();
   },
 });
 
@@ -85,6 +92,31 @@ Template.logbook.events({
   },
   'click .delete'() {
     Meteor.call('logbook.remove', this._id);
+  },
+  'submit .calcCorrection'(event, template) {
+    // Prevent default browser form submit
+    event.preventDefault();
+ 
+    // Get value from form element
+    const target = event.target;
+	const reading = target.reading.value;
+    const totalDose = target.totalDose.value;
+ 
+	if(reading > 6){
+		// Insert a record into the collection
+		Meteor.call('calculator.calcCorrection', reading, totalDose, function(error, result) {
+			  if (error)
+				console.log(error);
+			
+			template.correction.set(result);
+		});
+	}else{
+		alert("You don't need to correct anything. \nYour glucose reading is good!");
+	}
+ 
+    // Clear form
+	target.reading.value = '';
+    target.totalDose.value = '';
   },
 });
 
