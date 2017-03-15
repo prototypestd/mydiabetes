@@ -29,6 +29,7 @@
 						<div class="uk-card uk-card-default uk-card-body">
 							<table class="uk-table">
 								<caption>My Logbook for <b>{{curYear}}</b></caption>
+								{{#if Template.subscriptionsReady}}
 								<thead>
 									<tr>
 										<th>Date</th>
@@ -41,14 +42,13 @@
 									</tr>
 								</thead>
 								<tbody>
-								{{#if Template.subscriptionsReady}}
 								  {{#each tasks}}
 									{{> logs}}
 								  {{/each}}
-								{{else}}
-									Loading...
-								{{/if}}
 								</tbody>
+								{{else}}
+									{{> spinner}}
+								{{/if}}
 							</table>
 						</div>
 					</div>
