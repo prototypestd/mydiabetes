@@ -9,10 +9,15 @@
 						<div class="uk-navbar-right">
 							<ul class="uk-navbar-nav uk-visible@m">
 								<li><a onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li> 
-								<li class="uk-active"><a onclick="BlazeLayout.render('content', {main: 'logbook'});">My Logbook</a></li> 
+								<li class="uk-active"><a onclick="BlazeLayout.render('content', {main: 'logbook'});">My Logbook</a></li>
 								<li><a onclick="BlazeLayout.render('content', {main: 'profile'});">My Profile</a></li>
 								<li>
-								<a onclick="AccountsTemplates.logout();" class="logout">Logout</a>
+									<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+									<div class="uk-navbar-dropdown">
+										<ul class="uk-nav uk-navbar-dropdown-nav">
+											<li><a onclick="AccountsTemplates.logout();" class="logout">Logout</a></li>
+										</ul>
+									</div>
 								</li>
 							</ul>
 						</div>
@@ -26,29 +31,50 @@
 				<div uk-grid>
 					<div class="uk-width-expand">
 						<div class="uk-card uk-card-default uk-card-body">
-							<table class="uk-table">
-								<caption>My Logbook for <b>{{curYear}}</b></caption>
-								{{#if Template.subscriptionsReady}}
-								<thead>
-									<tr>
-										<th>Date</th>
-										<th>Pre-Breakfast <br>(Bolus +/ Correction)</th>
-										<th>Pre-Lunch <br>(Bolus +/ Correction)</th>
-										<th>Pre-Dinner <br>(Bolus +/ Correction)</th>
-										<th>Pre-Bed <br>(Basal +/ Correction)</th>
-										<th>3AM <br>(Correction)</th>
-										<th>Manage</th>
-									</tr>
-								</thead>
-								<tbody>
-								  {{#each tasks}}
-									{{> logs}}
-								  {{/each}}
-								</tbody>
-								{{else}}
-									{{> spinner}}
-								{{/if}}
-							</table>
+							<ul uk-tab uk-switcher>
+								<li><a href="#">Daily Logs</a></li>
+								<li><a href="#">Lab Results</a></li>
+							</ul>
+							
+							<ul class="uk-switcher">
+								<li><table class="uk-table">
+									<caption>My Logbook for <b>{{curYear}}</b></caption>
+									{{#if Template.subscriptionsReady}}
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Pre-Breakfast <br>(Bolus +/ Correction)</th>
+											<th>Pre-Lunch <br>(Bolus +/ Correction)</th>
+											<th>Pre-Dinner <br>(Bolus +/ Correction)</th>
+											<th>Pre-Bed <br>(Basal +/ Correction)</th>
+											<th>3AM <br>(Correction)</th>
+											<th>Manage</th>
+										</tr>
+									</thead>
+									<tbody>
+									  {{#each tasks}}
+										{{> logs}}
+									  {{/each}}
+									</tbody>
+									{{else}}
+										{{> spinner}}
+									{{/if}}
+								</table></li>
+								<li><table class="uk-table">
+									<caption>My Lab Results for <b>{{curYear}}</b> - (Please consult your doctor to have them input the latest data)</caption>
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th title="Hemoglobin A1C" uk-tooltip>HbA1C</th>
+											<th>Fasting Sugar</th>
+											<th title="Random fasting glucose" uk-tooltip>BMI</th>
+											<th>Microalbumin</th>
+											<th>Lipid</th>
+											<th>Creatinine</th>
+										</tr>
+									</thead>
+								</table></li>
+							</ul>
 						</div>
 					</div>
 					<div>
@@ -60,8 +86,8 @@
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">
 							<h3 class="uk-card-title">Insulin Ratios</h3>
-							<h5>ISF: {{ isf }}mmol/unit</h5>
-							<h5>ICR: {{ icr }}g CHO/unit</h5>
+							<h5 title="Insulin Sensitivity Factor" uk-tooltip>ISF: {{ isf }}mmol/unit</h5>
+							<h5 title="Insulin Carbohydrate Ratio" uk-tooltip>ICR: {{ icr }}g CHO/unit</h5>
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">
 							<h3 class="uk-card-title">Calculate Correction <sup style="font-size:10px;top:-1em">BETA</sup></h3>
@@ -114,7 +140,7 @@
 		<td>{{predinner}} <br>(Bolus: {{bolus3}}u)</td>
 		<td>{{prebed}} <br>(Basal: {{basal}}u)</td>
 		<td>{{midnight}}</td>
-		<td><a href="#edit-record-modal" class="edit"  uk-toggle><i class="fa fa-pencil"></i></a> <a class="delete"><i class="fa fa-trash"></i></a> <a href="#notes-modal" uk-toggle class="notes"><i class="fa fa-sticky-note"></i></a></td>
+		<td><a href="#edit-record-modal" class="edit" title="Edit Record" uk-tooltip uk-toggle><i class="fa fa-pencil"></i></a> <a class="delete" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a> <a href="#notes-modal" title="Edit Notes" uk-tooltip uk-toggle class="notes"><i class="fa fa-sticky-note"></i></a></td>
 		
 		<div id="edit-record-modal" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
