@@ -46,51 +46,57 @@ Template.logbook.events({
     // Insert a record into the collection
     Meteor.call('logbook.insert', prebreakfast, prelunch, predinner, prebed, midnight);
 	
-	if(prebreakfast > 8){
-		var r = confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?");
-		
-		if(r === true){
-			Meteor.call('calculator.calcCorrection', prebreakfast, 68, function(error, result) {
-				  if (error)
-					console.log(error);
-				
-				alert("Please give: "+result+"u");
-			});
+	Meteor.call('logbook.checkBreakfast',prebreakfast, function(error, result){
+		if(result){
+			if(confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?")){
+				Meteor.call('calculator.calcCorrection', prebreakfast, 68, function(error, result) {
+					  if (error)
+						console.log(error);
+					
+					alert("Please give: "+result+"u");
+				});
+			}
 		}
-	}else if(prelunch > 8){
-		var r = confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?");
-		
-		if(r === true){
-			Meteor.call('calculator.calcCorrection', prelunch, 68, function(error, result) {
-				  if (error)
-					console.log(error);
-				
-				alert("Please give: "+result+"u");
-			});
+	});
+	
+	Meteor.call('logbook.checkBreakfast',prelunch, function(error, result){
+		if(result){
+			if(confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?")){
+				Meteor.call('calculator.calcCorrection', prelunch, 68, function(error, result) {
+					  if (error)
+						console.log(error);
+					
+					alert("Please give: "+result+"u");
+				});
+			}
 		}
-	}else if(predinner > 8){
-		var r = confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?");
-		
-		if(r === true){
-			Meteor.call('calculator.calcCorrection', predinner, 68, function(error, result) {
-				  if (error)
-					console.log(error);
-				
-				alert("Please give: "+result+"u");
-			});
+	});
+	
+	Meteor.call('logbook.checkBreakfast',predinner, function(error, result){
+		if(result){
+			if(confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?")){
+				Meteor.call('calculator.calcCorrection', predinner, 68, function(error, result) {
+					  if (error)
+						console.log(error);
+					
+					alert("Please give: "+result+"u");
+				});
+			}
 		}
-	}else if(prebed > 8){
-		var r = confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?");
-		
-		if(r === true){
-			Meteor.call('calculator.calcCorrection', prebed, 68, function(error, result) {
-				  if (error)
-					console.log(error);
-				
-				alert("Please give: "+result+"u");
-			});
+	});
+	
+	Meteor.call('logbook.checkBreakfast',prebed, function(error, result){
+		if(result){
+			if(confirm("It seems that you're glucose reading is a bit high.\n Would you like a recommended correction dose?")){
+				Meteor.call('calculator.calcCorrection', prebed, 68, function(error, result) {
+					  if (error)
+						console.log(error);
+					
+					alert("Please give: "+result+"u");
+				});
+			}
 		}
-	}
+	});
 	
     // Clear form
     target.prebreakfast.value = '';

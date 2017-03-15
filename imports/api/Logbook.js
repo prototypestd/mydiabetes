@@ -55,4 +55,24 @@ Meteor.methods({
  
     Logbook.remove(recordId);
   },
+  'logbook.checkBreakfast'(prebreakfast){
+	  if(prebreakfast > 6){
+		  return true;
+	  }
+  },
+  'logbook.checkLunch'(prebreakfast){
+	  if(prebreakfast > 6){
+		  return true;
+	  }
+  },
+  'logbook.checkDinner'(prebreakfast){
+	  if(prebreakfast > 6){
+		  return true;
+	  }
+  },
+  'logbook.checkBed'(prebreakfast){
+	  if(prebreakfast > 6){
+		  return true;
+	  }
+  },
 });
