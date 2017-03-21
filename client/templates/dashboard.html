@@ -10,9 +10,22 @@
 							<ul class="uk-navbar-nav uk-visible@m">
 								<li class="uk-active"><a onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li> 
 								<li><a onclick="BlazeLayout.render('content', {main: 'logbook'});">My Logbook</a></li> 
-								<li><a onclick="BlazeLayout.render('content', {main: 'profile'});">My Profile</a></li>
 								<li>
-								<a onclick="AccountsTemplates.logout();" class="logout">Logout</a>
+									<a href="#">Library</a>
+									<div class="uk-navbar-dropdown" uk-dropdown>
+										<ul class="uk-nav uk-navbar-dropdown-nav">
+											<li><a onclick="BlazeLayout.render('content', {main: 'food-library'});" style="color:#999 !important;">Food Library</a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+									<div class="uk-navbar-dropdown" uk-dropdown>
+										<ul class="uk-nav uk-navbar-dropdown-nav">
+											<li><a onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
+											<li><a onclick="AccountsTemplates.logout();" class="logout" style="color:#999 !important;">Logout</a></li>
+										</ul>
+									</div>
 								</li>
 							</ul>
 						</div>
