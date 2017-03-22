@@ -5,6 +5,7 @@ import SimpleSchema from 'simpl-schema';
 Template.logbook.onCreated(function(){
   this.correction = new ReactiveVar(0);
   this.subscribe("logbook");
+  this.subscribe("labresults");
 });
 
 Template.logbook.helpers({
@@ -17,6 +18,9 @@ Template.logbook.helpers({
   },
   tasks() {
       return Logbook.find({});
+  },
+  labresults() {
+	  return LabResults.find({});
   },
   correction() {
 	  return Template.instance().correction.get();
@@ -31,6 +35,7 @@ Template.logbook.helpers({
 
 window.Logbook = Logbook;
 window.UserInfo = UserInfo;
+window.LabResults = LabResults;
 
 Template.logbook.events({
   'submit .new-record'(event) {
@@ -107,8 +112,27 @@ Template.logbook.events({
     target.prebed.value = '';
     target.midnight.value = '';
   },
+  'submit .new-labrecord'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+ 
+    // Get value from form element
+    const target = event.target;
+    const prebreakfast = target.hba1c.value;
+    const prelunch = target.fast.value;
+    const predinner = target.bmi.value;
+    const prebed = target.malbumin.value;
+    const midnight = target.lipid.value;
+	const crea = target.crea.value;
+ 
+    // Insert a record into the collection
+    Meteor.call('labresult.insert', prebreakfast, prelunch, predinner, prebed, midnight, crea);
+  },
   'click .delete'() {
     Meteor.call('logbook.remove', this._id);
+  },
+  'click .deleteLab'() {
+	  Meteor.call('labresult.remove', this._id);
   },
   'submit .calcCorrection'(event, template) {
     // Prevent default browser form submit

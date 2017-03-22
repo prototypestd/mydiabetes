@@ -70,17 +70,29 @@
 								</table></li>
 								<li><table class="uk-table">
 									<caption>My Lab Results for <b>{{curYear}}</b> - (Please consult your doctor to have them input the latest data)</caption>
+									{{#if Template.subscriptionsReady}}
 									<thead>
 										<tr>
 											<th>Date</th>
 											<th title="Hemoglobin A1C" uk-tooltip>HbA1C</th>
-											<th>Fasting Sugar</th>
-											<th title="Random fasting glucose" uk-tooltip>BMI</th>
+											<th title="Random fasting glucose" uk-tooltip>Fasting Sugar</th>
+											<th title="Body Mass Index" uk-tooltip>BMI</th>
 											<th>Microalbumin</th>
 											<th>Lipid</th>
 											<th>Creatinine</th>
+											{{#if isInRole 'doctor,super-admin' 'staff'}}
+											<th>Edit</th>
+											{{/if}}
 										</tr>
 									</thead>
+									<tbody>
+									  {{#each labresults}}
+										{{> labresult}}
+									  {{/each}}
+									</tbody>
+									{{else}}
+										{{> spinner}}
+									{{/if}}
 								</table></li>
 							</ul>
 						</div>
@@ -89,11 +101,14 @@
 						<div class="uk-card uk-card-default uk-card-body">
 							<div class="uk-flex uk-flex-column">
 									<a href="#add-record-modal" class="uk-button uk-button-default" uk-toggle>Add Record</a>
+									{{#if isInRole 'doctor,super-admin' 'staff'}}
+										<a href="#add-lab-record-modal" class="uk-button uk-button-default uk-margin-small-top" uk-toggle>Add Lab Record</a>
+									{{/if}}
 									<a href="" class="uk-button uk-button-default uk-margin-small-top">Settings</a>
 							</div>
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">
-							<h3 class="uk-card-title">Insulin Ratios</h3>
+							<h3 class="uk-card-title">Insulin Ratios {{#if isInRole 'doctor,super-admin' 'staff'}}<a href="#edit-ratio-modal" class="edit" title="Edit Insulin Ratios" uk-tooltip uk-toggle><i class="fa fa-pencil"></i></a>{{/if}}</h3>
 							<h5 title="Insulin Sensitivity Factor" uk-tooltip>ISF: {{ isf }}mmol/unit</h5>
 							<h5 title="Insulin Carbohydrate Ratio" uk-tooltip>ICR: {{ icr }}g CHO/unit</h5>
 						</div>
@@ -138,6 +153,42 @@
 			</form>
 		</div>
 	</div>
+	
+	{{#if isInRole 'doctor,super-admin' 'staff'}}
+	<div id="add-lab-record-modal" uk-modal>
+		<div class="uk-modal-dialog uk-modal-body">
+			<h2 class="uk-modal-title">Add new record</h2>
+			<form class="new-labrecord">
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="hba1c" name="hba1c">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="fasting glucose" name="fast">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="bmi" name="bmi">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="microalbumin" name="malbumin">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="lipid" name="lipid">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="creatinine" name="crea">
+				</div>
+				<input type="submit" style="display: none;"/>
+			</form>
+		</div>
+	</div>
+	
+	<div id="edit-ratio-modal" uk-modal>
+		<div class="uk-modal-dialog uk-modal-body">
+			<h2 class="uk-modal-title">Edit insulin ratios</h2>
+			{{> quickForm collection="UserInfo" doc=currentUser id="insulin-ratio" type="update" }}
+			</div>
+		</div>
+	{{/if}}
 </template>
 
 <template name="logs">
@@ -166,5 +217,20 @@
 						</form>
 			</div>
 		</div>
+	</tr>
+</template>
+
+<template name="labresult">
+	<tr>
+		<td>{{date}}</td>
+		<td>{{hba1c}}</td>
+		<td>{{fastsugar}}</td>
+		<td>{{bmi}}</td>
+		<td>{{malbumin}}</td>
+		<td>{{lipid}}</td>
+		<td>{{creatinine}}</td>
+		{{#if isInRole 'doctor,super-admin' 'staff'}}
+		<td><a class="deleteLab" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a></td>
+		{{/if}}
 	</tr>
 </template>

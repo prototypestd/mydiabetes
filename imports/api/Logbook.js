@@ -79,5 +79,33 @@ Meteor.methods({
 	  if(prebreakfast > 6){
 		  return true;
 	  }
-  }
+  },
+  'labresult.insert' (hba1c, fastsugar, bmi, malbumin, lipid, creatinine){
+	
+	var today = new Date();
+	var day = today.getDate();
+	var month = today.getMonth()+1;
+	var curDate = day + '/' + month;
+ 
+    // Make sure the user is logged in before inserting a task
+    if (! this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+ 
+    LabResults.insert({
+		userId: this.userId,
+		date: curDate, // current time
+		hba1c,
+		fastsugar,
+		bmi,
+		malbumin,
+		lipid,
+		creatinine
+    });
+  },
+  'labresult.remove'(recordId) {
+    check(recordId, String);
+ 
+    LabResults.remove(recordId);
+  },
 });
