@@ -5,7 +5,7 @@ import { UserInfo } from '/lib/collections';
 Meteor.methods({
   // Calculate the ICR (Insulin carbohydrate ratio) for patient
   // totalDose = total dose;
-  'calculator.calcICR'( totalDose ) {
+  'calculator.calcICR'() {
 		
 		const dose = UserInfo.find({
 					$or: [
@@ -19,7 +19,7 @@ Meteor.methods({
   },
   // Calculate the ISF (Insulin sensitivity factor) for patient
   // totalDose = total dose;
-  'calculator.calcISF'( totalDose ) {
+  'calculator.calcISF'() {
 	  
 		const dose = UserInfo.find({
 					$or: [
@@ -34,7 +34,7 @@ Meteor.methods({
   },
   // Calculate the correction for patient
   // reading = glucose reading; totalDose = total dose;
-  'calculator.calcCorrection'( reading, totalDose ) {
+  'calculator.calcCorrection'( reading ) {
 	  
 		const dose = UserInfo.find({
 					$or: [
@@ -50,7 +50,7 @@ Meteor.methods({
   },
   // Calculate the dose of patient
   // carb = intake carbohydrate; reading = glucose reading; totalDose = total dose;
-  'calculation.calcDose' ( carb, reading, totalDose ) {
+  'calculation.calcDose' ( carb, reading ) {
 	  
 		const dose = UserInfo.find({
 					$or: [
