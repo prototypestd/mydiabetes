@@ -1,26 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-export const UserInfo = new Mongo.Collection("userinfo");
-
-if (Meteor.isServer) {
-	
-	UserInfo.allow({
-		insert: function () { return true; },
-		update: function () { return true; },
-		remove: function () { return true; }
-	});
-	
-  // This code only runs on the server
-  Meteor.publish('userinfo', function userInfo() {
-    return UserInfo.find({
-      $or: [
-        { userId: this.userId }
-      ],
-    });
-  });
-}
-
 Meteor.methods({
   // Calculate the ICR (Insulin carbohydrate ratio) for patient
   // totalDose = total dose;

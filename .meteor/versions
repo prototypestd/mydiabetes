@@ -68,6 +68,7 @@ nimble:restivus@0.8.12
 npm-bcrypt@0.9.2
 npm-mongo@2.2.16_1
 observe-sequence@1.0.15
+ongoworks:security@2.0.1
 ordered-dict@1.0.9
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.14.0

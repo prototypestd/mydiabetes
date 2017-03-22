@@ -1,6 +1,5 @@
 import { Template } from 'meteor/templating';
-import { Logbook } from '../api/Logbook.js';
-import { UserInfo } from '../api/Calculator.js';
+import { Logbook, LabResults, UserInfo } from '/lib/collections';
 import SimpleSchema from 'simpl-schema';
 
 Template.logbook.onCreated(function(){
@@ -9,6 +8,9 @@ Template.logbook.onCreated(function(){
 });
 
 Template.logbook.helpers({
+  currentUser() {
+	  return UserInfo.findOne();
+  },
   curYear() {
 	 var today = new Date();
 	 return today.getFullYear();
@@ -134,28 +136,3 @@ Template.logbook.events({
     target.totalDose.value = '';
   },
 });
-
-Logbook.schema = new SimpleSchema({
-  userId: {type: String},
-  date: {type: String},
-  prebreakfast: {type: Number, optional: true},
-  prelunch: {type: Number, optional: true},
-  predinner: {type: Number, optional: true},
-  prebed: {type: Number, optional: true},
-  midnight: {type: Number, optional: true},
-  bolus1: {type: Number, optional: true},
-  bolus2: {type: Number, optional: true},
-  bolus3: {type: Number, optional: true},
-  basal: {type: Number, optional: true}
-});
-
-Logbook.attachSchema(Logbook.schema);
-
-UserInfo.schema = new SimpleSchema({
-  userId: {type: String},
-  totalDose: {type: Number},
-  icr: {type: Number},
-  isf: {type: Number}
-});
-
-UserInfo.attachSchema(UserInfo.schema);

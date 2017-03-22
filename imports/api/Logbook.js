@@ -1,25 +1,30 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-
-export const Logbook = new Mongo.Collection("logbook");
+import { Logbook, LabResults } from '/lib/collections';
 
 if (Meteor.isServer) {
 	
-	Logbook.allow({
-		insert: function () { return true; },
-		update: function () { return true; },
-		remove: function () { return true; }
-	});
+	Logbook.permit(['insert', 'update', 'remove']).ifLoggedIn();
+	
+	LabResults.permit(['insert', 'update', 'remove']).ifHasRole(['doctor', 'super-admin']);
 	
   // This code only runs on the server
-  Meteor.publish('logbook', function tasksPublication() {
-    return Logbook.find({
-      $or: [
-        { userId: this.userId }
-      ],
-    });
-  });
+	Meteor.publish('logbook', function tasksPublication() {
+		return Logbook.find({
+			$or: [
+				{ userId: this.userId }
+			],
+		});
+	});
+	
+	Meteor.publish('labresults', function labPublication() {
+		return LabResults.find({
+			$or: [
+				{ userId: this.userId }
+			],
+		});
+	});
 }
 
 Meteor.methods({
@@ -74,5 +79,5 @@ Meteor.methods({
 	  if(prebreakfast > 6){
 		  return true;
 	  }
-  },
+  }
 });

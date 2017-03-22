@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Logbook } from '../api/Logbook.js';
+import { Logbook, LabResults } from '/lib/collections';
 import { Api } from './apiversion.js';
 
 if (Meteor.isServer) {
