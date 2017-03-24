@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Logger, Exception } from '/lib/api';
 import { Logbook, LabResults } from '/lib/collections';
 
 if (Meteor.isServer) {
@@ -48,15 +49,23 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
  
-    Logbook.insert({
-      userId: this.userId,
-      date: curDate, // current time
-	  prebreakfast,
-	  prelunch,
-	  predinner,
-	  prebed,
-	  midnight,
-    });
+	try {
+		Logbook.insert({
+		  userId: this.userId,
+		  date: curDate, // current time
+		  prebreakfast,
+		  prelunch,
+		  predinner,
+		  prebed,
+		  midnight,
+		},(result, error) => {
+			if(error){
+				throw new Error();
+			}
+		});
+	} catch (e) {
+		Logger.error("Exception: "+e);
+	};
   },
   'logbook.remove'(recordId) {
     check(recordId, String);
@@ -95,16 +104,24 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
  
-    LabResults.insert({
-		userId: this.userId,
-		date: curDate, // current time
-		hba1c,
-		fastsugar,
-		bmi,
-		malbumin,
-		lipid,
-		creatinine
-    });
+	try {
+		LabResults.insert({
+			userId: this.userId,
+			date: curDate, // current time
+			hba1c,
+			fastsugar,
+			bmi,
+			malbumin,
+			lipid,
+			creatinine
+		},(result, error) => {
+			if(error){
+				throw new Error();
+			}
+		});
+	} catch (e) {
+		Logger.error("Exception: "+e);
+	};
   },
   'labresult.remove'(recordId) {
     check(recordId, String);
