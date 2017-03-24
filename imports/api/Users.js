@@ -32,5 +32,51 @@ Meteor.methods({
 		}
 		
 		Roles.setUserRoles(targetUserId, roles, group);
-	}
+	},
+	  /**
+	   * hasPermission - server
+	   * server permissions checks
+	   * hasPermission exists on both the server and the client.
+	   * @param {String | Array} checkPermissions -String or Array of permissions if empty, defaults to "admin, owner"
+	   * @param {String} userId - userId, defaults to Meteor.userId()
+	   * @param {String} checkGroup group - default to shopId
+	   * @return {Boolean} Boolean - true if has permission
+	   */
+	  hasPermission(checkPermissions, userId = Meteor.userId(), checkGroup = null) {
+		// check(checkPermissions, Match.OneOf(String, Array)); check(userId, String); check(checkGroup,
+		// Match.Optional(String));
+
+		let permissions;
+		// default group to the shop or global if shop isn't defined for some reason.
+		if (checkGroup !== undefined && typeof checkGroup === "string") {
+		  group = checkGroup;
+		} else {
+		  group = Roles.GLOBAL_GROUP;
+		}
+
+		// permissions can be either a string or an array we'll force it into an array and use that
+		if (checkPermissions === undefined) {
+		  permissions = ["super-admin"];
+		} else if (typeof checkPermissions === "string") {
+		  permissions = [checkPermissions];
+		} else {
+		  permissions = checkPermissions;
+		}
+
+		// return if user has permissions in the group
+		if (Roles.userIsInRole(userId, permissions, group)) {
+		  return true;
+		}
+		
+		// no specific permissions found returning false
+		return false;
+	  },
+	  
+	  hasDoctorAccess() {
+		return this.hasPermission(["doctor", "super-admin"]);
+	  },
+
+	  getSuperAdminId() {
+		return Roles.getGroupsForUser(this.userId, "super-admin");
+	  },
 });
