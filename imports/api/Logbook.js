@@ -7,7 +7,10 @@ if (Meteor.isServer) {
 	
 	Logbook.permit(['insert', 'update', 'remove']).ifLoggedIn();
 	
-	LabResults.permit(['insert', 'update', 'remove']).ifHasRole(['doctor', 'super-admin']);
+	LabResults.permit(['insert', 'update', 'remove']).ifHasRole({ 
+		role: ['doctor', 'super-admin'], 
+		group: 'staff'
+	});
 	
   // This code only runs on the server
 	Meteor.publish('logbook', function tasksPublication() {
