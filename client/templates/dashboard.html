@@ -1,39 +1,4 @@
-<template name="dashboard">
-		<div class="uk-section-primary">
-			<div uk-sticky="media: 960" class="uk-navbar-container uk-navbar-transparent uk-sticky uk-active">
-				<div class="uk-container uk-container-expand">
-					<nav class="uk-navbar">
-						<div class="uk-navbar-left">
-							<a href="/" class="uk-navbar-item uk-logo uk-active">myDiabetes</a>
-						</div> 
-						<div class="uk-navbar-right">
-							<ul class="uk-navbar-nav uk-visible@m">
-								<li class="uk-active"><a onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li> 
-								<li><a onclick="BlazeLayout.render('content', {main: 'logbook'});">My Logbook</a></li> 
-								<li>
-									<a href="#">Library</a>
-									<div class="uk-navbar-dropdown" uk-dropdown>
-										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li><a onclick="BlazeLayout.render('content', {main: 'flibrary'});" style="color:#999 !important;">Food Library</a></li>
-										</ul>
-									</div>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
-									<div class="uk-navbar-dropdown" uk-dropdown>
-										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li><a onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
-											<li><a onclick="AccountsTemplates.logout();" class="logout" style="color:#999 !important;">Logout</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
-		</div>
-		
+<template name="dashboard">		
 		<div class="uk-section">
 			<div class="uk-container">
 				<div uk-grid>

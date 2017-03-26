@@ -16,6 +16,7 @@ Meteor.startup(function () {
 import './main.html';
 
 // Import template logics
+import '../imports/ui/global.logic.js';
 import '../imports/ui/logbook.logic.js';
 import '../imports/ui/foodlibrary.logic.js';
 

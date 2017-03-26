@@ -10,6 +10,9 @@
 <body>
 	{{> status }}
 	<div>
+		{{#if isLoggedIn}}
+			{{> header}}
+		{{/if}}
 		{{> content}}
 	</div>
 			
