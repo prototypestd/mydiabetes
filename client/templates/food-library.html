@@ -1,4 +1,4 @@
-<template name="food-library">
+<template name="flibrary">
 		<div class="uk-section-primary">
 			<div uk-sticky="media: 960" class="uk-navbar-container uk-navbar-transparent uk-sticky uk-active">
 				<div class="uk-container uk-container-expand">
@@ -14,7 +14,7 @@
 									<a href="#">Library</a>
 									<div class="uk-navbar-dropdown" uk-dropdown>
 										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li><a onclick="BlazeLayout.render('content', {main: 'food-library'});" style="color:#999 !important;">Food Library</a></li>
+											<li><a onclick="BlazeLayout.render('content', {main: 'flibrary'});" style="color:#999 !important;">Food Library</a></li>
 										</ul>
 									</div>
 								</li>
@@ -37,13 +37,8 @@
 		<div class="uk-section">
 			<div class="uk-container">
 				<div uk-grid>
-					<div class="uk-width-expand">
-						<div class="uk-card uk-card-default uk-card-body">
-
-						</div>
-					</div>
-					<div>
-						{{#if isInRole 'doctor'}}
+					<div class="uk-width-1-4">
+						{{#if isInRole 'doctor,super-admin' 'staff'}}
 						<div class="uk-card uk-card-default uk-card-body">
 							<div class="uk-flex uk-flex-column">
 									<a href="#add-record-modal" class="uk-button uk-button-default" uk-toggle>Add Record</a>
@@ -52,51 +47,247 @@
 						</div>
 						{{/if}}
 						<div class="uk-card uk-card-default uk-card-body">
-							<div class="uk-flex uk-flex-column">
-									<h4>Categories</h4>
-									<a href="" class="uk-button uk-button-default">Milk, Yogurt</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Sweet Desserts</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Savury Desserts</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Vegetables</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starchy Vegetables</a>						
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starch (Biscuit)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starch (Fruit)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starch (Rice, Noodle, Grain, Pasta)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starch (Cereal)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Starch (Bread & Bun)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Fast Food</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Drinks</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Drinks (Carbonated)</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Sweets</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Chips & Crisps</a>
-							</div>
+							<h4>Categories {{curYear}}</h4>
+							<ul class="uk-flex uk-flex-column uk-padding-remove" uk-switcher="connect: .f-library" style="list-style:none;">
+									<li><a href="#" data-state="milk" class="uk-button uk-button-default uk-width-1-1">Milk, Yogurt</a></li>
+									<li><a href="#" data-state="sweetdessert" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Sweet Desserts</a></li>
+									<li><a href="#" data-state="savoury" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Savoury Desserts</a></li>
+									<li><a href="#" data-state="vegetables" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Vegetables</a></li>
+									<li><a href="#" data-state="starchvege" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starchy Vegetables</a></li>						
+									<li><a href="#" data-state="starchbiscuit" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starch (Biscuit)</a></li>
+									<li><a href="#" data-state="starchfruit" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starch (Fruit)</a></li>
+									<li><a href="#" data-state="starchcarb" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starch (Rice, Noodle, Grain, Pasta)</a></li>
+									<li><a href="#" data-state="starchcereal" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starch (Cereal)</a></li>
+									<li><a href="#" data-state="starchbread" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Starch (Bread & Bun)</a></li>
+									<li><a href="#" data-state="fastfood" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Fast Food</a></li>
+									<li><a href="#" data-state="drink" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Drinks</a></li>
+									<li><a href="#" data-state="drinkcarbon" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Drinks (Carbonated)</a></li>
+									<li><a href="#" data-state="sweets" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Sweets</a></li>
+									<li><a href="#" data-state="chips" class="uk-button uk-button-default uk-margin-small-top uk-width-1-1">Chips & Crisps</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="uk-width-expand">
+						<div class="uk-card uk-card-default uk-card-body">
+							<ul class="uk-switcher f-library">
+								<li>
+									<h4>Milk & Yogurt</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Sweet Desserts</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Savoury Desserts</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Vegetables</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starchy Vegetables</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starch (Biscuit)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starch (Fruit)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starch (Rice, Noodle, Grain, Pasta)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starch (Cereal)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Starch (Bread & Bun)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Fast Food</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Drinks</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Drinks (Carbonated)</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Sweets</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+								<li>
+									<h4>Chips & Crisps</h4>
+									<div class="uk-grid-small uk-flex-center" uk-grid>
+										{{#if tasks.count}}
+											{{#each tasks}} 
+												{{> foodview}} 
+											{{/each}}
+										{{else}}
+											<b>No data is available. This might be a problem with the system, please contact an admin/doctor</b>
+										{{/if}}
+									</div>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+	{{#if isInRole 'doctor,super-admin' 'staff'}}
 	<div id="add-record-modal" uk-modal>
 		<div class="uk-modal-dialog uk-modal-body">
 			<h2 class="uk-modal-title">Add new record</h2>
-			<form class="new-record">
+			<form class="new-food">
 				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="pre-Breakfast" name="prebreakfast">
+					<input class="uk-input" type="text" placeholder="Name" name="name">
 				</div>
 				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="pre-Lunch" name="prelunch">
+					<input class="uk-input" type="text" placeholder="Category" name="category">
 				</div>
 				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="pre-Dinner" name="predinner">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="pre-Bed" name="prebed">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="3AM" name="midnight">
+					<input class="uk-input" type="text" placeholder="Carb" name="carb">
 				</div>
 				<input type="submit" style="display: none;"/>
 			</form>
+		</div>
+	</div>
+	{{/if}}
+</template>
+
+<template name="foodview">
+	<div class="uk-card uk-card-default uk-margin-right">
+		<div class="uk-card-media-top">
+			<img src="" alt="{{name}}">
+		</div>
+		<div class="uk-card-body">
+			<h3 class="uk-card-title">{{name}} {{#if isInRole 'doctor,super-admin' 'staff'}}<sup><a class="delete" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a></sup>{{/if}}</h3>
+			<ul>
+				<li>Carbohydrates: {{carb}}</li>
+			</ul>
 		</div>
 	</div>
 </template>

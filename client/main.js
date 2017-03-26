@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
 import { UserInfo } from '../imports/api/Calculator.js';
+import { FoodLibrary } from '../imports/api/FoodLibrary.js';
 import { SimpleSchema } from 'simpl-schema';
 
 // Import some stratup functions
@@ -16,6 +17,7 @@ import './main.html';
 
 // Import template logics
 import '../imports/ui/logbook.logic.js';
+import '../imports/ui/foodlibrary.logic.js';
 
 AutoForm.debug();
 
