@@ -141,11 +141,10 @@ Template.logbook.events({
     // Get value from form element
     const target = event.target;
 	const reading = target.reading.value;
-    const totalDose = target.totalDose.value;
  
 	if(reading > 6){
 		// Insert a record into the collection
-		Meteor.call('calculator.calcCorrection', reading, totalDose, function(error, result) {
+		Meteor.call('calculator.calcCorrection', reading, function(error, result) {
 			  if (error)
 				console.log(error);
 			
@@ -157,6 +156,5 @@ Template.logbook.events({
  
     // Clear form
 	target.reading.value = '';
-    target.totalDose.value = '';
   },
 });
