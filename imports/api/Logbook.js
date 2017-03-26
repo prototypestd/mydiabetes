@@ -58,7 +58,7 @@ Meteor.methods({
 		  predinner,
 		  prebed,
 		  midnight,
-		},(result, error) => {
+		},(error, result) => {
 			if(error){
 				throw new Error();
 			}
@@ -114,7 +114,7 @@ Meteor.methods({
 			malbumin,
 			lipid,
 			creatinine
-		},(result, error) => {
+		},(error, result) => {
 			if(error){
 				throw new Error();
 			}
