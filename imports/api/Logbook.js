@@ -6,7 +6,7 @@ import { Logbook, LabResults } from '/lib/collections';
 
 if (Meteor.isServer) {
 	
-	Logbook.permit(['insert', 'update', 'remove']).ifLoggedIn();
+	Logbook.permit(['insert', 'update', 'remove']).ifLoggedIn().allowInClientCode();
 	
 	LabResults.permit(['insert', 'update', 'remove']).ifHasRole({ 
 		role: ['doctor', 'super-admin'], 
