@@ -8,8 +8,7 @@
 						</div> 
 						<div class="uk-navbar-right">
 							<ul class="uk-navbar-nav uk-visible@m">
-								<li><a href="./docs/introduction">About</a></li> 
-								<li class=""><a href="/changelog">Help</a></li>
+								<li><a href="/about">About</a></li> 
 							</ul>
 						</div>
 					</nav>
@@ -25,7 +24,7 @@
 						</p> 
 						<div uk-grid="" class="uk-child-width-auto uk-grid-medium uk-flex-inline uk-flex-center uk-grid">
 							<div>
-								<a href="#" class="uk-button uk-button-primary tm-button-primary">Register</a>
+								<a href="#beta-signup" class="uk-button uk-button-primary tm-button-primary" uk-toggle>Register</a>
 							</div> 
 							<div>
 								<a href="#login-modal" class="uk-button uk-button-default tm-button-default" uk-toggle>Login</a>
@@ -36,17 +35,21 @@
 			</div>
 		</div>
 		
-		<div id="register-modal" uk-modal>
+		<div id="beta-signup" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				<h2 class="uk-modal-title">Request for Beta access</h2>
 				<form class="request-beta">
 					<div class="uk-margin">
 						<input class="uk-input" type="text" placeholder="Email" name="email">
 					</div>
+					<div class="uk-margin">
+						<input class="uk-input" type="textarea" placeholder="Reason" name="reason">
+					</div>
 					<input type="submit" style="display: none;"/>
 				</form>
 			</div>
 		</div>
+
 </template>
 
 <template name="login">
