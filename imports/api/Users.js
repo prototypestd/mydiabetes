@@ -1,22 +1,86 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { UserInfo } from '/lib/collections';
+import { UserInfo, Invites } from '/lib/collections';
 
 if (Meteor.isServer) {
 	
 	UserInfo.permit(['insert', 'update', 'remove']).ifLoggedIn();
 	
-  // This code only runs on the server
-  Meteor.publish('userinfo', function userInfo() {
-    return UserInfo.find({
-      $or: [
-        { userId: this.userId }
-      ],
-    });
-  });
+	Invites.permit(['insert', 'update', 'remove']);
+	
+	// This code only runs on the server
+    Meteor.publish('userinfo', function userInfo() {
+		return UserInfo.find({
+			$or: [
+				{ userId: this.userId }
+			],
+		});
+	});
+	
+    Meteor.publish('invites', function userInfo() {
+		return Invites.find({});
+	});
 }
 
 Meteor.methods({
+	/**
+	 * Adds a user to the invite list 
+	 *
+	 * @param {String} email User email
+	 */
+	'beta.addToInvites' (email, reason){
+		check(email, String);
+		check(reason, String);
+		
+		let emailExists = Invites.findOne( { email: email } ),
+			inviteCount = Invites.find( {}, { fields: { _id: 1 } } ).count();
+			
+		if(!emailExists){
+			return Invites.insert({
+				email: email,
+				invited: false,
+				requested: (new Date()).toISOString(),
+				token: Random.hexString(15),
+				accountCreated: false,
+				inviteNumber: inviteCount + 1,
+				reason: reason
+			});
+		}else{
+			throw new Meteor.Error('already-invited', 'Sorry it looks like you\'ve already been invited');
+		}
+	},
+	'beta.sendInvite' (inviteId){
+		check(inviteId, String);
+		
+		const urls = {
+			development: 'http://localhost:3000/signup/',
+			production: '#'
+		};
+
+		let invite = Invites.findOne({_id: inviteId });
+		
+		if(invite){
+		  SSR.compileTemplate( 'inviteEmail', Assets.getText( 'email/templates/invite.html' ) );
+
+		  Email.send({
+			to: invite.email,
+			from: 'myDiabetes <beta@mydiabetes.io>',
+			subject: 'Welcome to myDiabetes!',
+			html: SSR.render( 'inviteEmail', {
+			  url: urls[ process.env.NODE_ENV ] + invite.token
+			})
+		  });
+
+		  Invites.update( invite._id, {
+			$set: {
+			  invited: true,
+			  dateInvited: ( new Date() ).toISOString()
+			} 
+		  });
+		} else {
+		  throw new Meteor.Error( 'not-found', 'Sorry, an invite with that ID could not be found.' );
+		}
+	},
 	/**
 	* Update a user's permission
 	*

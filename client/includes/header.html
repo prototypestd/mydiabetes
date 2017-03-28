@@ -43,6 +43,9 @@
 									<div class="uk-navbar-dropdown" uk-dropdown>
 										<ul class="uk-nav uk-navbar-dropdown-nav">
 											<li><a onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
+											{{#if isInRole 'super-admin' 'staff'}}
+											<li><a onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
+											{{/if}}
 											<li><a onclick="AccountsTemplates.logout();" class="logout" style="color:#999 !important;">Logout</a></li>
 										</ul>
 									</div>

@@ -17,8 +17,10 @@ import './main.html';
 
 // Import template logics
 import '../imports/ui/global.logic.js';
+import '../imports/ui/index.logic.js';
 import '../imports/ui/logbook.logic.js';
 import '../imports/ui/foodlibrary.logic.js';
+import '../imports/ui/adminpanel.logic.js';
 
 AutoForm.debug();
 

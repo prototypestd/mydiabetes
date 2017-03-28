@@ -22,6 +22,7 @@ check
 useraccounts:unstyled
 useraccounts:flow-routing
 random
+email
 
 # Auth Packages
 accounts-password
@@ -37,6 +38,11 @@ easy:search
 francocatena:status
 sacha:spin
 alanning:roles
+mrt:moment
 ongoworks:security
+cfs:standard-packages
+cfs:gridfs
+meteorhacks:ssr
 
 # Performance & Debugging Tools
+

@@ -1,0 +1,72 @@
+<template name="adminpanel">		
+		<div class="uk-section">
+			<div class="uk-container">
+				<div uk-grid>
+					<div class="uk-width-expand">
+						<div class="uk-card uk-card-default uk-card-body">
+							<ul uk-tab uk-switcher>
+								<li><a href="#">Users</a></li>
+								<li><a href="#">Invites</a></li>
+								<li><a href="#">About</a></li>
+							</ul>
+							
+							<ul class="uk-switcher">
+								<li><table class="uk-table">
+									<caption>myDiabetes Users</caption>
+								</table></li>
+								<li><table class="uk-table">
+									<caption>myDiabetes Users</caption>
+									{{#if Template.subscriptionsReady}}
+									<thead>
+										<tr>
+											<th>Email</th>
+											<th>Invited</th>
+											<th>Date</th>
+											<th>Token</th>
+											<th>Account Created</th>
+											<th>Manage</th>
+										</tr>
+									</thead>
+									<tbody>
+									  {{#each tasks}}
+										{{> invite}}
+									  {{/each}}
+									</tbody>
+									{{else}}
+										{{> spinner}}
+									{{/if}}
+								</table></li>
+								<li><table class="uk-table">
+									<caption>About</caption>
+								</table></li>
+							</ul>
+						</div>
+					</div>
+					<div>
+						<div class="uk-card uk-card-default uk-card-body">
+							<div class="uk-flex uk-flex-column">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	{{#if isInRole 'doctor,super-admin' 'staff'}}
+
+	{{/if}}
+</template>
+
+<template name="invite">
+	<tr>
+		<td>{{email}}</td>
+		<td>{{invited}}</td>
+		<td>{{requested}}</td>
+		<td>{{token}}</td>
+		<td>{{accountCreated}}</td>
+		{{#if isInRole 'super-admin' 'staff'}}
+		<td><a class="sendInvite" title="Send Invite" uk-tooltip><i class="fa fa-envelope"></i></a> <a class="deleteInvite" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
+		{{/if}}
+	</tr>
+</template>
