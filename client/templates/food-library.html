@@ -236,6 +236,10 @@
 				<div class="uk-margin">
 					<input class="uk-input" type="text" placeholder="Carb" name="carb">
 				</div>
+				<div class="uk-margin">
+					<input type="file" class="imageupload" multiple>
+					<button class="uk-button uk-button-default" type="button" tabindex="-1">Select Image</button>
+				</div>
 				<input type="submit" style="display: none;"/>
 			</form>
 		</div>
@@ -246,7 +250,9 @@
 <template name="foodview">
 	<div class="uk-card uk-card-default uk-margin-right">
 		<div class="uk-card-media-top">
-			<img src="" alt="{{name}}">
+			{{#each getImage '{{picture}}'}}
+				<img src="{{url}}" alt="{{name}}">
+			{{/each}}
 		</div>
 		<div class="uk-card-body">
 			<h3 class="uk-card-title">{{name}} {{#if isInRole 'doctor,super-admin' 'staff'}}<sup><a class="delete" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a></sup>{{/if}}</h3>
