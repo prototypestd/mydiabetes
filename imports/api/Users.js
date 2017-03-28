@@ -8,6 +8,10 @@ if (Meteor.isServer) {
 	
 	Invites.permit(['insert', 'update', 'remove']);
 	
+	Meteor.publish('userlist', function userList() {
+		return Meteor.users.find({});
+	});
+	
 	// This code only runs on the server
     Meteor.publish('userinfo', function userInfo() {
 		return UserInfo.find({
@@ -90,6 +94,18 @@ Meteor.methods({
 		check(userId, String);
 		
 		Meteor.user.remove(userId);
+	},
+	'user.setRoleOnUser' ( options ) {
+		check( options, {
+			user: String,
+			role: String
+		});
+
+		try {
+			Roles.setUserRoles( options.user, [ options.role ] );
+		} catch( exception ) {
+			return exception;
+		}
 	},
 	/**
 	* Update a user's permission

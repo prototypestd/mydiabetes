@@ -17,6 +17,7 @@
 									<thead>
 										<tr>
 											<th>Email</th>
+											<th>Role</th>
 											<th>Manage</th>
 										</tr>
 									</thead>
@@ -89,6 +90,12 @@
 <template name="user">
 	<tr>
 		<td>{{email}}</td>
+		<td>
+            <select {{disableIfAdmin _id}} name="userRole" class="form-control">
+                <option selected="{{selected roles.[0] 'super-admin'}}" value="super-admin">Admin</option>
+                <option selected="{{selected roles.[0] 'doctor'}}" value="doctor">Doctor</option>
+            </select>
+		</td>
 		{{#if isInRole 'super-admin' 'staff'}}
 		<td><a class="deleteUser" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
 		{{/if}}

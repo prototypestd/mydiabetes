@@ -2,7 +2,8 @@ import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
 Template.adminpanel.onCreated(function(){
-  this.subscribe("invites");
+	this.subscribe("userlist");
+	this.subscribe("invites");
 });
 
 Template.adminpanel.helpers({
@@ -17,6 +18,17 @@ Template.adminpanel.helpers({
 Template.user.helpers({
 	email() {
 		return this.emails[0].address;
+	},
+	isCurrentUser(userId){
+		return userId === Meteor.userId() ? true : false;
+	},
+	disableIfAdmin(userId){
+		if(Meteor.userId() === userId){
+			return Roles.userIsInRole(userId, 'super-admin') ? "disable" : "";
+		}
+	},
+	selected(v1, v2){
+		return v1 === v2 ? true : false;
 	}
 });
 
@@ -53,6 +65,18 @@ Template.adminpanel.events({
 				}
 			});
 		}
+	},
+    'change [name="userRole"]': function( event, template ) {
+		let role = $( event.target ).find( 'option:selected' ).val();
+
+		Meteor.call( "user.setRoleOnUser", {
+			user: this._id,
+			role: role
+		}, ( error, response ) => {
+			if ( error ) {
+				alert( error.reason );
+			}
+		});
 	}
 });
 		
