@@ -37,7 +37,8 @@ Template.flibrary.events({
 		const name = target.name.value;
 		const category = target.category.value;
 		const carb = target.carb.value;
-		const imageId = Template.instance().imageu.get();
+		const imageId = Template.instance().imageu.get()._id;
+		console.log(imageId);
 		
 		Meteor.call('flibrary.insert', name, category, carb, imageId);
 		
@@ -56,9 +57,10 @@ Template.flibrary.events({
 	},
 	'change .imageupload': function(event, template) {
 		var file = event.target.files[0];
-		const imageId = Media.insert(file, function (err, fileObj) {
+		var imageId = Media.insert(file, function (err, fileObj) {
 			// Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
 		});
+		console.log(imageId);
 		Template.instance().imageu.set(imageId);
 	}
 });

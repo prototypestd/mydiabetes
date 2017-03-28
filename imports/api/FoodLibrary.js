@@ -18,7 +18,6 @@ Meteor.methods({
     check(name, String);
     check(category, String);
     check(carb, String);
-	check(imageId, String);
  
     // Make sure the user is logged in before inserting a task
     if (! this.userId) {

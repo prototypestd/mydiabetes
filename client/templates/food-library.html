@@ -248,11 +248,9 @@
 </template>
 
 <template name="foodview">
-	<div class="uk-card uk-card-default uk-margin-right">
+	<div class="uk-card uk-card-default uk-margin-right" style="padding:0">
 		<div class="uk-card-media-top">
-			{{#each getImage '{{picture}}'}}
-				<img src="{{url}}" alt="{{name}}">
-			{{/each}}
+				<img src="assets/files/Media/{{picture}}" alt="{{name}}" style="width:100%">
 		</div>
 		<div class="uk-card-body">
 			<h3 class="uk-card-title">{{name}} {{#if isInRole 'doctor,super-admin' 'staff'}}<sup><a class="delete" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a></sup>{{/if}}</h3>
