@@ -81,6 +81,16 @@ Meteor.methods({
 		  throw new Meteor.Error( 'not-found', 'Sorry, an invite with that ID could not be found.' );
 		}
 	},
+	'beta.deleteInvite' (userId){
+		check(userId, String);
+		
+		Invites.remove(userId);
+	},
+	'users.deleteUser' (userId){
+		check(userId, String);
+		
+		Meteor.user.remove(userId);
+	},
 	/**
 	* Update a user's permission
 	*

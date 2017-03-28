@@ -13,9 +13,24 @@
 							<ul class="uk-switcher">
 								<li><table class="uk-table">
 									<caption>myDiabetes Users</caption>
+									{{#if Template.subscriptionsReady}}
+									<thead>
+										<tr>
+											<th>Email</th>
+											<th>Manage</th>
+										</tr>
+									</thead>
+									<tbody>
+									  {{#each users}}
+										{{> user}}
+									  {{/each}}
+									</tbody>
+									{{else}}
+										{{> spinner}}
+									{{/if}}
 								</table></li>
 								<li><table class="uk-table">
-									<caption>myDiabetes Users</caption>
+									<caption>myDiabetes Invites</caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
 										<tr>
@@ -66,7 +81,16 @@
 		<td>{{token}}</td>
 		<td>{{accountCreated}}</td>
 		{{#if isInRole 'super-admin' 'staff'}}
-		<td><a class="sendInvite" title="Send Invite" uk-tooltip><i class="fa fa-envelope"></i></a> <a class="deleteInvite" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
+		<td>{{#if invited}} {{else}}<a class="sendInvite" title="Send Invite" uk-tooltip><i class="fa fa-envelope"></i></a> {{/if}}<a class="deleteInvite" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
+		{{/if}}
+	</tr>
+</template>
+
+<template name="user">
+	<tr>
+		<td>{{email}}</td>
+		{{#if isInRole 'super-admin' 'staff'}}
+		<td><a class="deleteUser" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
 		{{/if}}
 	</tr>
 </template>
