@@ -46,3 +46,4 @@ meteorhacks:ssr
 
 # Performance & Debugging Tools
 
+zuuk:stale-session
