@@ -65,7 +65,7 @@ Meteor.methods({
 		});
 	} catch (e) {
 		Logger.error("Exception: "+e);
-	};
+	}
   },
   'logbook.remove'(recordId) {
     check(recordId, String);
@@ -121,7 +121,7 @@ Meteor.methods({
 		});
 	} catch (e) {
 		Logger.error("Exception: "+e);
-	};
+	}
   },
   'labresult.remove'(recordId) {
     check(recordId, String);

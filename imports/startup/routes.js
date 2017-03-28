@@ -15,6 +15,12 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/signup/:token', {
+	name: 'signup',
+	action( params ){
+	}
+});
+
 // Sets up the 404 page
 FlowRouter.notFound = {
   action() {
