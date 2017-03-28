@@ -24,6 +24,10 @@ if (Meteor.isServer) {
     Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
 	});
+	
+	Impersonate.adminGroups = [
+		{ role: "super-admin", group: "staff" }
+	];
 }
 
 Meteor.methods({

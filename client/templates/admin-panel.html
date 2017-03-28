@@ -94,10 +94,9 @@
             <select {{disableIfAdmin _id}} name="userRole" class="form-control">
                 <option selected="{{selected roles.[0] 'super-admin'}}" value="super-admin">Admin</option>
                 <option selected="{{selected roles.[0] 'doctor'}}" value="doctor">Doctor</option>
+				<option selected="{{selected roles.[0] 'patient'}}" value="patient">Patient</option>
             </select>
-		</td>
-		{{#if isInRole 'super-admin' 'staff'}}
-		<td><a class="deleteUser" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
-		{{/if}}
+		</td>	
+		<td>{{#if isInRole 'super-admin' 'staff'}}<a class="deleteUser" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a> {{/if}}<a style="{{disableIfDoctorAdmin _id}}" class="impersonate" data-impersonate="{{_id}}" title="Impersonate this user" uk-tooltip><i class="fa fa-key"></i></a></td>	
 	</tr>
 </template>

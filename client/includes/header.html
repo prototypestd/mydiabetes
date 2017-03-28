@@ -46,7 +46,12 @@
 											{{#if isInRole 'super-admin' 'staff'}}
 											<li><a onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
 											{{/if}}
+											
+											{{#if isImpersonating}}
+											<li><a onclick="Impersonate.undo();" class="logout" style="color:#999 !important;">Logout</a></li>
+											{{else}}
 											<li><a onclick="AccountsTemplates.logout();" class="logout" style="color:#999 !important;">Logout</a></li>
+											{{/if}}
 										</ul>
 									</div>
 								</li>

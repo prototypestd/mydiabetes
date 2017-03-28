@@ -27,6 +27,11 @@ Template.user.helpers({
 			return Roles.userIsInRole(userId, 'super-admin') ? "disable" : "";
 		}
 	},
+	disableIfDoctorAdmin(userId){
+		if(!Roles.userIsInRole(Meteor.userId(), 'super-admin')){
+			return Roles.userIsInRole(userId, ['doctor', 'super-admin']) ? "visibility:hidden" : "";
+		}
+	},
 	selected(v1, v2){
 		return v1 === v2 ? true : false;
 	}
