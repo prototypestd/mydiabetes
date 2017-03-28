@@ -2,6 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { UserInfo } from '/lib/collections';
 
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+
 Meteor.methods({
   // Calculate the ICR (Insulin carbohydrate ratio) for patient
   // totalDose = total dose;
@@ -14,7 +19,14 @@ Meteor.methods({
 					}).map(function(post) { return post.totalDose; });
 	  
 		const ICR = 450 / dose;
-		const r = Math.round(ICR * 100)/100;
+		//const r = Math.round(ICR * 100)/100;
+		const r = round(ICR);
+		
+		UserInfo.update({ userId: this.userId },{$set:{icr: r}}, function(error, result){
+			if(error){
+				console.log(error.reason);
+			}
+		});
 		return r;
   },
   // Calculate the ISF (Insulin sensitivity factor) for patient
@@ -28,9 +40,15 @@ Meteor.methods({
 					}).map(function(post) { return post.totalDose; });
 	  
 		const ISF = 100 / dose;
-		const r = Math.round(ISF * 100)/100;
+		//const r = Math.round(ISF * 100)/100;
+		const r = round(ISF);
 		
-	  return r;
+		UserInfo.update({ userId: this.userId },{$set:{isf: r}}, function(error, result){
+			if(error){
+				console.log(error.reason);
+			}
+		});
+		return r;
   },
   // Calculate the correction for patient
   // reading = glucose reading; totalDose = total dose;

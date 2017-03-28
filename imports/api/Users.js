@@ -4,7 +4,7 @@ import { UserInfo, Invites } from '/lib/collections';
 
 if (Meteor.isServer) {
 	
-	UserInfo.permit(['insert', 'update', 'remove']).ifLoggedIn();
+	UserInfo.permit(['insert', 'update', 'remove']).ifLoggedIn().allowInClientCode();
 	
 	Invites.permit(['insert', 'update', 'remove']);
 	

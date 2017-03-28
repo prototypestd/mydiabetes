@@ -134,6 +134,10 @@ Template.logbook.events({
   'click .deleteLab'() {
 	  Meteor.call('labresult.remove', this._id);
   },
+  'click .refreshRatio'() {
+	  Meteor.call('calculator.calcICR');
+	  Meteor.call('calculator.calcISF');
+  },
   'submit .calcCorrection'(event, template) {
     // Prevent default browser form submit
     event.preventDefault();
