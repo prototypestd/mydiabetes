@@ -37,39 +37,106 @@ Template.user.helpers({
 	}
 });
 
+var grin = emojione.toImage(':grin:');
+var cry = emojione.toImage(':cry:');
+
 Template.adminpanel.events({
 	'click .sendInvite' () {
-		if(confirm('Are you sure you want to invite' + this.email +'?')){
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to invite back the user!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
 			Meteor.call('beta.sendInvite', this._id, function(error, result) {
 				if(error){
-					alert(error.reason);
+					swal('Oops...', 'Something went wrong!', 'error');
+					console.log(error.reason);
 				}else{
-					alert('Invite sent!');
+					swal(
+						'Deleted!',
+						'The invite was sent ' + grin,
+						'success'
+					);
 				}
 			});
-		}
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The invite was not sent ' + cry,
+					'error'
+				);
+			}
+		});
 	},
 	'click .deleteInvite' () {
-		if(confirm('Are you sure you want to cancel ' + this.email +'\'s invitation?')){
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to invite back the user!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
+			console.log(this._id);
 			Meteor.call('beta.deleteInvite', this._id, function(error, result) {
 				if(error){
-					alert(error.reason);
+					swal('Oops...', 'Something went wrong!', 'error');
+					console.log(error.reason);
 				}else{
-					alert('Invite canceled!');
+					swal(
+						'Deleted!',
+						'The invite was cancelled ' + grin,
+						'success'
+					);
 				}
 			});
-		}
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The invite was not cancelled ' + cry,
+					'error'
+				);
+			}
+		});
 	},
 	'click .deleteUser' () {
-		if(confirm('Are you sure you want to delete ' + this.email +'?')){
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to request the user to register back later!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
 			Meteor.call('user.deleteUser', this._id, function(error, result) {
 				if(error){
-					alert(error.reason);
+					swal('Oops...', 'Something went wrong!', 'error');
+					console.log(error.reason);
 				}else{
-					alert('User deleted!');
+					swal(
+						'Deleted!',
+						'The user was deleted ' + grin,
+						'success'
+					);
 				}
 			});
-		}
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The user was not deleted ' + cry,
+					'error'
+				);
+			}
+		});
 	},
     'change [name="userRole"]': function( event, template ) {
 		let role = $( event.target ).find( 'option:selected' ).val();
@@ -79,7 +146,8 @@ Template.adminpanel.events({
 			role: role
 		}, ( error, response ) => {
 			if ( error ) {
-				alert( error.reason );
+				swal('Oops...', 'Something went wrong! ' + cry, 'error');
+				console.log(error.reason);
 			}
 		});
 	}

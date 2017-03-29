@@ -4,7 +4,6 @@ Template.header.onCreated(function(){
   this.state = new ReactiveVar('dashboard');
 });
 
-
 Template.registerHelper("isLoggedIn", function () {
 	if(Meteor.user()){
 		return true;

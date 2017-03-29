@@ -9,7 +9,6 @@ Template.flibrary.onCreated(function(){
   this.subscribe("media");
 });
 
-
 Template.flibrary.helpers({
   currentUser() {
 	  return UserInfo.findOne();
@@ -29,6 +28,9 @@ Template.foodview.helpers({
   }
 });
 
+var grin = emojione.toImage(':grin:');
+var cry = emojione.toImage(':cry:');
+
 Template.flibrary.events({
 	'submit .new-food' (event) {
 		event.preventDefault();
@@ -40,7 +42,18 @@ Template.flibrary.events({
 		const imageId = Template.instance().imageu.get()._id;
 		console.log(imageId);
 		
-		Meteor.call('flibrary.insert', name, category, carb, imageId);
+		Meteor.call('flibrary.insert', name, category, carb, imageId, function(error, result) {
+				if(error){
+					swal('Oops...', 'Something went wrong!', 'error');
+					console.log(error.reason);
+				}else{
+					swal(
+						'Success!',
+						'The data was inserted. ' + grin,
+						'success'
+					);
+				}
+			});
 		
 		target.name.value = '';
 		target.category.value = '';
