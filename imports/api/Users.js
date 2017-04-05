@@ -111,6 +111,13 @@ Meteor.methods({
 			return exception;
 		}
 	},
+	'user.updateInsulin' (t, id){
+		UserInfo.update({ userId: id },{$set:{totalDose: t}}, function(error, result){
+			if(error){
+				console.log(error.reason);
+			}
+		});
+	},
 	/**
 	* Update a user's permission
 	*

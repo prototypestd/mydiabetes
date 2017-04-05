@@ -1,9 +1,15 @@
 import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
+userId = '';
+
 Template.adminpanel.onCreated(function(){
 	this.subscribe("userlist");
 	this.subscribe("invites");
+});
+
+Template.user.onCreated(function(){
+	this.userId = new ReactiveVar('');
 });
 
 Template.adminpanel.helpers({
@@ -34,6 +40,12 @@ Template.user.helpers({
 	},
 	selected(v1, v2){
 		return v1 === v2 ? true : false;
+	},
+	userInfo(){
+		let user = Template.instance().userId.get();
+		console.log(user);
+		console.log(UserInfo.find({ userId: user }).map(function(post) { return post._id; }));
+		return UserInfo.find({ userId: user }).map(function(post) { return post._id; });
 	}
 });
 
@@ -148,6 +160,36 @@ Template.adminpanel.events({
 			if ( error ) {
 				swal('Oops...', 'Something went wrong! ' + cry, 'error');
 				console.log(error.reason);
+			}
+		});
+	}
+});
+
+Template.user.events({
+	'click [data-state]' () {
+		event.preventDefault();
+		
+		console.log("Library state: " + this._id);
+		Template.instance().userId.set(this._id);
+		console.log('Template instance: +' + Template.instance().userId.get());
+	},
+	'submit .updateInsulin' (event, template){
+		event.preventDefault();
+		
+		const target = event.target;
+		const totalDose = target.totalDose.value;
+		const userId = target.uid.value;
+		
+		Meteor.call('user.updateInsulin', totalDose, userId, function(error, result){
+			if(error){
+				swal('Oops...', 'Something went wrong!', 'error');
+				console.log(error.reason);
+			}else{
+				swal(
+					'Success!',
+					'Insulin ratio updated. ' + grin,
+					'success'
+				);
 			}
 		});
 	}

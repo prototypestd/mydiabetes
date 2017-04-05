@@ -6,3 +6,4 @@ import '../imports/api/Media.js';
 
 // Import the REST apis
 import '../imports/rest/index.js';
+import './firstrun.js';
