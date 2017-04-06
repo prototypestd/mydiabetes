@@ -42,6 +42,12 @@ var loginFunc = function(error, state){
 		BlazeLayout.render('content', {main: 'dashboard'});
     }
     if (state === "signUp") {
+		UserInfo.insert({
+			userId: Meteor.userId(),
+			totalDose: 0,
+			icr: 0,
+			isf: 0
+		});
 		BlazeLayout.render('content', {main: 'dashboard'});
     }
   }
