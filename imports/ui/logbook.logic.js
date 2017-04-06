@@ -6,6 +6,7 @@ Template.logbook.onCreated(function(){
   this.correction = new ReactiveVar(0);
   this.subscribe("logbook");
   this.subscribe("labresults");
+  this.subscribe("userinfo");
 });
 
 Template.logbook.helpers({
