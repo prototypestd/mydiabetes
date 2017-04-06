@@ -191,4 +191,4 @@ var signupHook = function(userId, info){
 	});
 };
 	
-export signupHook;
+export { signupHook };
