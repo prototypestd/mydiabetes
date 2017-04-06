@@ -37,12 +37,16 @@ Template.flibrary.events({
 		
 		const target = event.target;
 		const name = target.name.value;
-		const category = target.category.value;
+		const category = $( target.category ).find( 'option:selected' ).val();
+		console.log(category);
 		const carb = target.carb.value;
+		const energy = target.energy.value;
+		const serving = target.serving.value;
+		const sugar = target.sugar.value;
 		const imageId = Template.instance().imageu.get()._id;
 		console.log(imageId);
 		
-		Meteor.call('flibrary.insert', name, category, carb, imageId, function(error, result) {
+		Meteor.call('flibrary.insert', name, category, serving, carb, energy, sugar, imageId, function(error, result) {
 				if(error){
 					swal('Oops...', 'Something went wrong!', 'error');
 					console.log(error.reason);

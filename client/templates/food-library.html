@@ -231,14 +231,38 @@
 					<input class="uk-input" type="text" placeholder="Name" name="name">
 				</div>
 				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="Category" name="category">
+					<select name="category" class="uk-select">
+						<option value="milk">Milk</option>
+						<option value="sweetdessert">Sweet Desserts</option>
+						<option value="savoury">Savoury Desserts</option>
+						<option value="vegetables">Vegetables</option>
+						<option value="starchvege">Starch (Vegetables)</option>
+						<option value="starchbiscuit">Starch (Biscuit)</option>
+						<option value="starchfruit">Starch (Fruit)</option>
+						<option value="starchcarb">Starch (Carbohydrates)</option>
+						<option value="starchcereal">Starch (Cereal)</option>
+						<option value="starchbread">Starch (Bread)</option>
+						<option value="fastfood">Fast Food</option>
+						<option value="drink">Drinks</option>
+						<option value="drinkcarbon">Drinks (Carbonated)</option>
+						<option value="sweets">Sweets</option>
+						<option value="chips">Chips</option>
+					</select>
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Serving Size" name="serving">
 				</div>
 				<div class="uk-margin">
 					<input class="uk-input" type="text" placeholder="Carb" name="carb">
 				</div>
 				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Energy (kcal)" name="energy">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Sugar" name="sugar">
+				</div>
+				<div class="uk-margin">
 					<input type="file" class="imageupload" multiple>
-					<button class="uk-button uk-button-default" type="button" tabindex="-1">Select Image</button>
 				</div>
 				<input type="submit" style="display: none;"/>
 			</form>
@@ -255,7 +279,10 @@
 		<div class="uk-card-body">
 			<h3 class="uk-card-title">{{name}} {{#if isInRole 'doctor,super-admin' 'staff'}}<sup><a class="delete" title="Delete Record" uk-tooltip><i class="fa fa-trash"></i></a></sup>{{/if}}</h3>
 			<ul>
+				<li>Serving Size (kcal): {{serving}}</li>
 				<li>Carbohydrates: {{carb}}</li>
+				<li>Energy: {{energy}}</li>
+				<li>Sugar: {{sugar}}</li>
 			</ul>
 		</div>
 	</div>

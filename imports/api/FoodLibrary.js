@@ -14,7 +14,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'flibrary.insert'(name, category, carb, picture) {
+  'flibrary.insert'(name, category, serving, carb, energy, sugar, picture) {
     check(name, String);
     check(category, String);
     check(carb, String);
@@ -29,6 +29,9 @@ Meteor.methods({
 		  name,
 		  category,
 		  carb,
+		  serving,
+		  energy,
+		  sugar,
 		  picture
 		},(error, result) => {
 			if(error){
