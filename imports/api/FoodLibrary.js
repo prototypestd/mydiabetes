@@ -39,7 +39,7 @@ Meteor.methods({
 			}
 		});
 	} catch (e) {
-		Logger.error("Exception: "+e);
+		console.log('Exception: '+e);
 	}
   },
   'flibrary.remove'(recordId) {
