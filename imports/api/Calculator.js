@@ -62,7 +62,7 @@ Meteor.methods({
 	  
 		const ISF = 100 / dose;
 		const correction = (reading - 6) / (Math.round(ISF * 100)/100);
-		const r = Math.round(correction * 100)/100;
+		const r = round(correction);
 	  
 	  return r;
   },
@@ -93,7 +93,7 @@ Meteor.methods({
 		}else{
 			curDose = (carb / ICR);
 		}
-		const r3 = Math.round(curDose * 100)/100;
+		const r3 = round(curDose);
 	  
 	  return r3;
   },
