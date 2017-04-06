@@ -73,7 +73,7 @@
 							</div>
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">
-							<h3 class="uk-card-title">Insulin Ratios {{#if isInRole 'doctor,super-admin' 'staff'}}<sup><a href="#edit-ratio-modal" class="edit" title="Edit Insulin Ratios" uk-tooltip uk-toggle><i class="fa fa-pencil"></i></a> | <a href="" class="refreshRatio" title="Refresh Insulin Ratios" uk-tooltip><i class="fa fa-refresh"></i></a></sup>{{/if}}</h3>
+							<h3 class="uk-card-title">Insulin Ratios <sup><a href="#edit-ratio-modal" class="edit" title="Edit Insulin Ratios" uk-tooltip uk-toggle><i class="fa fa-pencil"></i></a> | <a href="" class="refreshRatio" title="Refresh Insulin Ratios" uk-tooltip><i class="fa fa-refresh"></i></a></sup></h3>
 							<h5 title="Insulin Sensitivity Factor" uk-tooltip>ISF: {{ isf }}mmol/unit</h5>
 							<h5 title="Insulin Carbohydrate Ratio" uk-tooltip>ICR: {{ icr }}g CHO/unit</h5>
 						</div>
@@ -143,6 +143,7 @@
 			</form>
 		</div>
 	</div>
+	{{/if}}
 	
 	<div id="edit-ratio-modal" uk-modal>
 		<div class="uk-modal-dialog uk-modal-body">
@@ -150,7 +151,7 @@
 			{{> quickForm collection="UserInfo" doc=currentUser id="insulin-ratio" type="update" }}
 			</div>
 		</div>
-	{{/if}}
+
 </template>
 
 <template name="logs">
