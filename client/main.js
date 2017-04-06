@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
-import { UserInfo } from '../imports/api/Calculator.js';
+import { UserInfo, signupHook } from '../imports/api/Calculator.js';
 import { FoodLibrary } from '../imports/api/FoodLibrary.js';
 import { SimpleSchema } from 'simpl-schema';
 
@@ -42,12 +42,6 @@ var loginFunc = function(error, state){
 		BlazeLayout.render('content', {main: 'dashboard'});
     }
     if (state === "signUp") {
-		UserInfo.insert({
-			userId: Meteor.userId(),
-			totalDose: 0,
-			icr: 0,
-			isf: 0
-		});
 		BlazeLayout.render('content', {main: 'dashboard'});
     }
   }
@@ -59,7 +53,8 @@ var postLogout = function(){
 
 AccountsTemplates.configure({
     onSubmitHook: loginFunc,
-	onLogoutHook: postLogout
+	onLogoutHook: postLogout,
+	postSignUpHook: signupHook
 });
 
 
