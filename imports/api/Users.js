@@ -20,6 +20,24 @@ if (Meteor.isServer) {
 			],
 		});
 	});
+
+/*	Accounts.onLogin(function() {
+		var isFirstTime = LocalStore.get('isFirstTime', {reactive: false});
+		console.log(LocalStore.get('isFirstTime', {reactive: false}));
+
+		if(isFirstTime !== true){
+			LocalStore.set('isFirstTime', true, {reactive: false});
+			
+			UserInfo.insert({
+				userId: user.user._id,
+				totalDose: 0,
+				icr: 0,
+				isf: 0
+			});
+
+			console.log(LocalStore.get('isFirstTime', {reactive: false}));
+		}
+	});*/
 	
     Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
