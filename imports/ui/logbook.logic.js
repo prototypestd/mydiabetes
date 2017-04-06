@@ -279,7 +279,7 @@ Template.logbook.events({
 				console.log(error.reason);
 			}else{
 				swal(
-					'Success!',
+					'Here You Go!',
 					'Please give '+result+'u ' + grin,
 					'success'
 				);
@@ -287,9 +287,9 @@ Template.logbook.events({
 		});
 	}else{
 		swal(
-			'Success!',
+			'Oh Wait!',
 			'You don\'t need to give any correction.\n Your reading is already good. ' + grin,
-			'success'
+			'info'
 		);
 	}
  
