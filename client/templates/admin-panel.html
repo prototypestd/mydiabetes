@@ -11,7 +11,7 @@
 							</ul>
 							
 							<ul class="uk-switcher">
-								<li><table class="uk-table">
+								<li><div class="uk-overflow-auto"><table class="uk-table">
 									<caption>myDiabetes Users</caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
@@ -29,8 +29,9 @@
 									{{else}}
 										{{> spinner}}
 									{{/if}}
-								</table></li>
-								<li><table class="uk-table">
+								</table></div></li>
+								
+								<li><div class="uk-overflow-auto"><table class="uk-table">
 									<caption>myDiabetes Invites</caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
@@ -51,10 +52,11 @@
 									{{else}}
 										{{> spinner}}
 									{{/if}}
-								</table></li>
-								<li><table class="uk-table">
+								</table></div></li>
+								
+								<li><div class="uk-overflow-auto"><table class="uk-table">
 									<caption>About</caption>
-								</table></li>
+								</table></div></li>
 							</ul>
 						</div>
 					</div>
@@ -91,7 +93,7 @@
 	<tr>
 		<td>{{email}}</td>
 		<td>
-            <select {{disableIfAdmin _id}} name="userRole" class="form-control">
+            <select {{disableIfAdmin _id}} name="userRole" class="form-control uk-select">
                 <option selected="{{selected roles.[0] 'super-admin'}}" value="super-admin">Admin</option>
                 <option selected="{{selected roles.[0] 'doctor'}}" value="doctor">Doctor</option>
 				<option selected="{{selected roles.[0] 'patient'}}" value="patient">Patient</option>
