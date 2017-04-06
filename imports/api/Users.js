@@ -21,6 +21,17 @@ if (Meteor.isServer) {
 		});
 	});
 	
+	AccountsTemplates.configure({
+		postSignUpHook: (userId, info) => {
+			UserInfo.insert({
+				userId: userId,
+				totalDose: 0,
+				icr: 0,
+				isf: 0
+			});
+		}
+	});
+	
     Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
 	});
@@ -181,14 +192,3 @@ Meteor.methods({
 		return Roles.getGroupsForUser(this.userId, "super-admin");
 	  },
 });
-
-var signupHook = function(userId, info){
-	UserInfo.insert({
-		userId: userId,
-		totalDose: 0,
-		icr: 0,
-		isf: 0
-	});
-};
-	
-export { signupHook };

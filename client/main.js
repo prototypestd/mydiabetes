@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Logbook } from '../imports/api/Logbook.js';
-import { UserInfo, signupHook } from '../imports/api/Calculator.js';
+import { UserInfo } from '../imports/api/Calculator.js';
 import { FoodLibrary } from '../imports/api/FoodLibrary.js';
 import { SimpleSchema } from 'simpl-schema';
 
@@ -53,8 +53,7 @@ var postLogout = function(){
 
 AccountsTemplates.configure({
     onSubmitHook: loginFunc,
-	onLogoutHook: postLogout,
-	postSignUpHook: signupHook
+	onLogoutHook: postLogout
 });
 
 
