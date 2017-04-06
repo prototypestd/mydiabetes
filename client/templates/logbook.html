@@ -10,7 +10,7 @@
 							</ul>
 							
 							<ul class="uk-switcher">
-								<li><table class="uk-table">
+								<li><div class="uk-overflow-auto"><table class="uk-table">
 									<caption>My Logbook for <b>{{curYear}}</b></caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
@@ -32,8 +32,8 @@
 									{{else}}
 										{{> spinner}}
 									{{/if}}
-								</table></li>
-								<li><table class="uk-table">
+								</table></div></li>
+								<li><div class="uk-overflow-auto"><table class="uk-table">
 									<caption>My Lab Results for <b>{{curYear}}</b> - (Please consult your doctor to have them input the latest data)</caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
@@ -58,7 +58,7 @@
 									{{else}}
 										{{> spinner}}
 									{{/if}}
-								</table></li>
+								</table></div></li>
 							</ul>
 						</div>
 					</div>
