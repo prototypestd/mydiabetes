@@ -233,8 +233,8 @@ Template.logbook.events({
 	});
   },
   'click .refreshRatio'() {
-	  Meteor.call('calculator.calcICR');
-	  Meteor.call('calculator.calcISF');
+	  Meteor.call('calculator.calcICR', function(error, result) { if(error) { Bert.alert(error.reason, 'danger'); } });
+	  Meteor.call('calculator.calcISF', function(error, result) { if(error) { Bert.alert(error.reason, 'danger'); } });
   },
   'submit .calcCorrection'(event, template) {
     // Prevent default browser form submit

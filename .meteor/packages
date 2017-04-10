@@ -23,6 +23,9 @@ useraccounts:unstyled
 useraccounts:flow-routing
 random@1.0.10
 email@1.1.18
+session
+ddp-rate-limiter
+underscore
 
 # Auth Packages
 accounts-password@1.3.4
@@ -43,12 +46,11 @@ ongoworks:security
 cfs:standard-packages
 cfs:gridfs
 meteorhacks:ssr
-
-# Performance & Debugging Tools
-
 zuuk:stale-session
 cfs:ejson-file
 gwendall:impersonate
 cleandersonlobo:sweetalert2
 emojione:emojione
-session
+
+# Performance & Debugging Tools
+themeteorchef:bert
