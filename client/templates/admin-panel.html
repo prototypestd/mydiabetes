@@ -23,7 +23,7 @@
 									</thead>
 									<tbody>
 									  {{#each users}}
-										{{> user}}
+										{{> myuser}}
 									  {{/each}}
 									</tbody>
 									{{else}}
@@ -71,9 +71,28 @@
 			</div>
 		</div>
 	
-	{{#if isInRole 'doctor,super-admin' 'staff'}}
-
-	{{/if}}
+		<div id="edit-user-modal" uk-modal>
+			<div class="uk-modal-dialog uk-modal-body">
+				<h2 class="uk-modal-title">Edit User</h2>
+					<ul uk-tab uk-switcher>
+						<li><a href="#">Personal Info</a></li>
+						<li><a href="#">Insulin Ratio</a></li>
+					</ul>
+							
+					<ul class="uk-switcher">
+						<li></li>
+						<li>
+							<form class="update-insulin">
+								<div class="uk-margin">
+									<input class="uk-input" type="text" placeholder="Total Dose" name="totalDose">
+								</div>
+								<input type="text" value="{{clickedId}}" style="display:none;" name="uid"/>
+								<input type="submit"/>
+							</form>						
+						</li>
+					</ul>
+			</div>
+		</div>
 </template>
 
 <template name="invite">
@@ -89,7 +108,7 @@
 	</tr>
 </template>
 
-<template name="user">
+<template name="myuser">
 	<tr>
 		<td>{{email}}</td>
 		<td>
@@ -100,27 +119,6 @@
             </select>
 		</td>	
 		<td>{{#if isInRole 'super-admin' 'staff'}}<a class="deleteUser" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a> {{/if}}<a style="{{disableIfDoctorAdmin _id}}" class="impersonate" data-impersonate="{{_id}}" title="Impersonate this user" uk-tooltip><i class="fa fa-key"></i></a> <a href="#edit-user-modal" data-state="{{_id}}" class="editUser" title="Edit user" uk-tooltip uk-toggle><i class="fa fa-pencil"></i></a></td>	
-		<div id="edit-user-modal" uk-modal>
-			<div class="uk-modal-dialog uk-modal-body">
-				<h2 class="uk-modal-title">Edit User</h2>
-					<ul uk-tab uk-switcher>
-						<li><a href="#">Personal Info</a></li>
-						<li><a href="#">Insulin Ratio</a></li>
-					</ul>
-							
-					<ul class="uk-switcher">
-						<li></li>
-						<li>
-							<form class="updateInsulin">
-								<div class="uk-margin">
-									<input class="uk-input" type="text" placeholder="Total Dose" name="totalDose">
-								</div>
-								<input type="text" value="{{_id}}" style="display:none;"/>
-								<input type="submit" style="display: none;"/>
-							</form>						
-						</li>
-					</ul>
-			</div>
-		</div>
+
 	</tr>
 </template>

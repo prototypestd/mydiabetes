@@ -21,6 +21,10 @@ if (Meteor.isServer) {
 		});
 	});
 	
+    Meteor.publish('userinfoadmin', function userInfo() {
+		return UserInfo.find({});
+	});
+	
 	AccountsTemplates.configure({
 		postSignUpHook: (userId, info) => {
 			UserInfo.insert({

@@ -6,9 +6,10 @@ userId = '';
 Template.adminpanel.onCreated(function(){
 	this.subscribe("userlist");
 	this.subscribe("invites");
+	this.subscribe("userinfoadmin");
 });
 
-Template.user.onCreated(function(){
+Template.myuser.onCreated(function(){
 	this.userId = new ReactiveVar('');
 });
 
@@ -18,10 +19,13 @@ Template.adminpanel.helpers({
 	},
 	users() {
 		return Meteor.users.find({});
+	},
+	clickedId() {
+		return userId;
 	}
 });
 
-Template.user.helpers({
+Template.myuser.helpers({
 	email() {
 		return this.emails[0].address;
 	},
@@ -162,24 +166,20 @@ Template.adminpanel.events({
 				console.log(error.reason);
 			}
 		});
-	}
-});
-
-Template.user.events({
-	'click [data-state]' () {
-		event.preventDefault();
-		
-		console.log("Library state: " + this._id);
-		Template.instance().userId.set(this._id);
-		console.log('Template instance: +' + Template.instance().userId.get());
 	},
-	'submit .updateInsulin' (event, template){
+	'submit .update-insulin'(event) {
+		// Prevent default browser form submit
 		event.preventDefault();
-		
+	 
+		// Get value from form element
 		const target = event.target;
 		const totalDose = target.totalDose.value;
 		const userId = target.uid.value;
 		
+		console.log(userId);
+		console.log(totalDose);
+	 
+		// Insert a record into the collection
 		Meteor.call('user.updateInsulin', totalDose, userId, function(error, result){
 			if(error){
 				swal('Oops...', 'Something went wrong!', 'error');
@@ -192,6 +192,18 @@ Template.user.events({
 				);
 			}
 		});
+	}
+});
+
+Template.myuser.events({
+	'click [data-state]' () {
+		event.preventDefault();
+		
+		console.log("Library state: " + this._id);
+		Template.instance().userId.set(this._id);
+		userId = this._id;
+		console.log('UserID global' + userId);
+		console.log('Template instance: +' + Template.instance().userId.get());
 	}
 });
 		
