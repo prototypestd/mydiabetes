@@ -180,6 +180,8 @@ Template.adminpanel.events({
 				swal('Oops...', 'Something went wrong!', 'error');
 				console.log(error.reason);
 			}else{
+				Meteor.call('calculator.calcICR');
+				Meteor.call('calculator.calcISF');
 				swal(
 					'Success!',
 					'Insulin ratio updated. ' + grin,
