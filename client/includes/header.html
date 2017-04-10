@@ -38,13 +38,14 @@
 									</li>
 								{{/if}}
 
-								<li>
+								{{#if isBurger}}
+								<li class="uk-active">
 									<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
 									<div class="uk-navbar-dropdown" uk-dropdown>
 										<ul class="uk-nav uk-navbar-dropdown-nav">
-											<li><a onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
+											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
 											{{#if isInRole 'super-admin' 'staff'}}
-											<li><a onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
+											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
 											{{/if}}
 											
 											{{#if isImpersonating}}
@@ -55,6 +56,25 @@
 										</ul>
 									</div>
 								</li>
+								{{else}}
+								<li>
+									<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+									<div class="uk-navbar-dropdown" uk-dropdown>
+										<ul class="uk-nav uk-navbar-dropdown-nav">
+											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'profile'});" style="color:#999 !important;">My Profile</a></li>
+											{{#if isInRole 'super-admin' 'staff'}}
+											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
+											{{/if}}
+											
+											{{#if isImpersonating}}
+											<li><a onclick="Impersonate.undo();" class="logout" style="color:#999 !important;">Logout</a></li>
+											{{else}}
+											<li><a onclick="AccountsTemplates.logout();" class="logout" style="color:#999 !important;">Logout</a></li>
+											{{/if}}
+										</ul>
+									</div>
+								</li>
+								{{/if}}
 							</ul>
 						</div>
 					</nav>

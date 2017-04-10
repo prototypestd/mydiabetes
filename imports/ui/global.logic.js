@@ -40,6 +40,13 @@ Template.header.helpers({
 		}else{
 			return false;
 		}
+	},
+	isBurger(){
+		if(Template.instance().state.get() === 'burger'){
+			return true;
+		}else{
+			return false;
+		}
 	}
 });
 
