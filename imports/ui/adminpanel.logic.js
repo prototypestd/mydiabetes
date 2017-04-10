@@ -1,8 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
-userId = '';
-
 Template.adminpanel.onCreated(function(){
 	this.subscribe("userlist");
 	this.subscribe("invites");
@@ -175,9 +173,6 @@ Template.adminpanel.events({
 		const target = event.target;
 		const totalDose = target.totalDose.value;
 		const userId = Session.get('curUserId');
-		
-		console.log(userId);
-		console.log(totalDose);
 	 
 		// Insert a record into the collection
 		Meteor.call('user.updateInsulin', totalDose, userId, function(error, result){
@@ -199,11 +194,8 @@ Template.myuser.events({
 	'click [data-state]' () {
 		event.preventDefault();
 		
-		console.log("Library state: " + this._id);
 		Template.instance().userId.set(this._id);
 		Session.set('curUserId',this._id);
-		console.log('UserID global'  + Session.get(curUserId));
-		console.log('Template instance: +' + Template.instance().userId.get());
 	}
 });
 		
