@@ -71,28 +71,52 @@
 			</div>
 		</div>
 	
-		<div id="edit-user-modal" uk-modal>
-			<div class="uk-modal-dialog uk-modal-body">
-				<h2 class="uk-modal-title">Edit User</h2>
-					<ul uk-tab uk-switcher>
-						<li><a href="#">Personal Info</a></li>
-						<li><a href="#">Insulin Ratio</a></li>
-					</ul>
+	<div id="edit-user-modal" uk-modal>
+		<div class="uk-modal-dialog uk-modal-body">
+			<h2 class="uk-modal-title">Edit User</h2>
+			<ul uk-tab uk-switcher>
+				<li><a href="#">Personal Info</a></li>
+				<li><a href="#">Insulin Ratio</a></li>
+				<li><a href="#">Add Lab Record</a></li>
+			</ul>
 							
-					<ul class="uk-switcher">
-						<li></li>
-						<li>
-							<form class="update-insulin">
-								<div class="uk-margin">
-									<input class="uk-input" type="text" placeholder="Total Dose" name="totalDose">
-								</div>
-								<input type="text" value="{{clickedId}}" style="display:none;" name="uid"/>
-								<input type="submit"/>
-							</form>						
-						</li>
-					</ul>
-			</div>
+			<ul class="uk-switcher">
+				<li>
+				</li>
+				<li>
+					<form class="update-insulin">
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="Total Dose" name="totalDose">
+						</div>
+						<input type="submit"/>
+					</form>						
+				</li>
+				<li>
+					<form class="new-labrecord">
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="hba1c" name="hba1c">
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="fasting glucose" name="fast">
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="bmi" name="bmi">
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="microalbumin" name="malbumin">
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="lipid" name="lipid">
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input" type="text" placeholder="creatinine" name="crea">
+						</div>
+						<input type="submit" style="display: none;"/>
+					</form>
+				</li>
+			</ul>
 		</div>
+	</div>
 </template>
 
 <template name="invite">

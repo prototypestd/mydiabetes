@@ -187,7 +187,35 @@ Template.adminpanel.events({
 				);
 			}
 		});
-	}
+	},
+	'submit .new-labrecord'(event) {
+		// Prevent default browser form submit
+		event.preventDefault();
+ 
+		// Get value from form element
+		const target = event.target;
+		const prebreakfast = target.hba1c.value;
+		const prelunch = target.fast.value;
+		const predinner = target.bmi.value;
+		const prebed = target.malbumin.value;
+		const midnight = target.lipid.value;
+		const crea = target.crea.value;
+		const user = Session.get('curUserId');
+ 
+		// Insert a record into the collection
+		Meteor.call('labresult.insert', prebreakfast, prelunch, predinner, prebed, midnight, crea, user, function(error, result) {
+			if(error){
+				swal('Oops...', 'Something went wrong!', 'error');
+				console.log(error.reason);
+			}else{
+				swal(
+					'Success!',
+					'New lab result inserted. ' + grin,
+					'success'
+				);
+			}
+		});
+	},
 });
 
 Template.myuser.events({

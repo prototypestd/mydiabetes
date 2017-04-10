@@ -66,9 +66,6 @@
 						<div class="uk-card uk-card-default uk-card-body">
 							<div class="uk-flex uk-flex-column">
 									<a href="#add-record-modal" class="uk-button uk-button-default" uk-toggle>Add Record</a>
-									{{#if isInRole 'doctor,super-admin' 'staff'}}
-										<a href="#add-lab-record-modal" class="uk-button uk-button-default uk-margin-small-top" uk-toggle>Add Lab Record</a>
-									{{/if}}
 									<a href="" class="uk-button uk-button-default uk-margin-small-top">Settings</a>
 							</div>
 						</div>
@@ -117,32 +114,7 @@
 	</div>
 	
 	{{#if isInRole 'doctor,super-admin' 'staff'}}
-	<div id="add-lab-record-modal" uk-modal>
-		<div class="uk-modal-dialog uk-modal-body">
-			<h2 class="uk-modal-title">Add new record</h2>
-			<form class="new-labrecord">
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="hba1c" name="hba1c">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="fasting glucose" name="fast">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="bmi" name="bmi">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="microalbumin" name="malbumin">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="lipid" name="lipid">
-				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="creatinine" name="crea">
-				</div>
-				<input type="submit" style="display: none;"/>
-			</form>
-		</div>
-	</div>
+
 	{{/if}}
 
 </template>

@@ -92,7 +92,7 @@ Meteor.methods({
 		  return true;
 	  }
   },
-  'labresult.insert' (hba1c, fastsugar, bmi, malbumin, lipid, creatinine){
+  'labresult.insert' (hba1c, fastsugar, bmi, malbumin, lipid, creatinine, userId){
 	
 	var today = new Date();
 	var day = today.getDate();
@@ -106,7 +106,7 @@ Meteor.methods({
  
 	try {
 		LabResults.insert({
-			userId: this.userId,
+			userId,
 			date: curDate, // current time
 			hba1c,
 			fastsugar,
@@ -120,7 +120,7 @@ Meteor.methods({
 			}
 		});
 	} catch (e) {
-		Logger.error("Exception: "+e);
+		console.log('Error: labresult.insert: '+e.reason);
 	}
   },
   'labresult.remove'(recordId) {
