@@ -21,7 +21,7 @@ Template.adminpanel.helpers({
 		return Meteor.users.find({});
 	},
 	clickedId() {
-		return userId;
+		return Session.get('curUserId');
 	}
 });
 
@@ -174,7 +174,7 @@ Template.adminpanel.events({
 		// Get value from form element
 		const target = event.target;
 		const totalDose = target.totalDose.value;
-		const userId = target.uid.value;
+		const userId = Session.get('curUserId');
 		
 		console.log(userId);
 		console.log(totalDose);
@@ -201,8 +201,8 @@ Template.myuser.events({
 		
 		console.log("Library state: " + this._id);
 		Template.instance().userId.set(this._id);
-		userId = this._id;
-		console.log('UserID global' + userId);
+		Session.set('curUserId',this._id);
+		console.log('UserID global'  + Session.get(curUserId));
 		console.log('Template instance: +' + Template.instance().userId.get());
 	}
 });
