@@ -29,6 +29,10 @@ if (Meteor.isServer) {
 			],
 		});
 	});
+	
+	Meteor.publish('labresultsadmin', function labPublication() {
+		return LabResults.find({});
+	});
 }
 
 Meteor.methods({

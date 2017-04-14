@@ -5,6 +5,7 @@ Template.adminpanel.onCreated(function(){
 	this.subscribe("userlist");
 	this.subscribe("invites");
 	this.subscribe("userinfoadmin");
+	this.subscribe("labresultsadmin");
 });
 
 Template.myuser.onCreated(function(){
@@ -17,6 +18,9 @@ Template.adminpanel.helpers({
 	},
 	users() {
 		return Meteor.users.find({});
+	},
+	labresults() {
+		return LabResults.find({ userId: Session.get('curUserId') });
 	},
 	clickedId() {
 		return Session.get('curUserId');
@@ -31,8 +35,8 @@ Template.myuser.helpers({
 		return userId === Meteor.userId() ? true : false;
 	},
 	disableIfAdmin(userId){
-		if(Meteor.userId() === userId){
-			return Roles.userIsInRole(userId, 'super-admin') ? "disable" : "";
+		if(Meteor.userId() === this._id){
+			return Roles.userIsInRole(this._id, 'super-admin') ? "disabled" : "";
 		}
 	},
 	disableIfDoctorAdmin(userId){
