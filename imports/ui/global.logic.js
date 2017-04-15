@@ -1,5 +1,23 @@
 import { Template } from 'meteor/templating';
 
+if(Meteor.isClient){
+	Tracker.autorun((c) => {
+		let status = Meteor.status().connected;
+		
+		if(!status && !c.firstRun){
+			Bert.alert('It seems that we\'ve lost connection to the server', 'danger', 'growl-top-right');
+		}
+	});
+	
+	Tracker.autorun(() => {
+		let user = Meteor.userId();
+		
+		if(!user){
+			BlazeLayout.render('content', {main: 'index'});
+		}
+	});
+};
+
 Template.header.onCreated(function(){
   this.state = new ReactiveVar('dashboard');
 });
