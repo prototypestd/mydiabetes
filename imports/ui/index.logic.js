@@ -1,6 +1,19 @@
 import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
+Template.index.onRendered(function() {
+  let settings = 'particles.json';
+  this.autorun(() => {
+    if (particlesJS) {
+      console.log(`loading particles.js config from "${settings}"...`)
+      /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+      particlesJS.load('particles', settings, function () {
+        console.log('callback - particles.js config loaded');
+      });
+    }
+  });
+});
+
 Template.index.events({
 	'submit .request-beta' (event) {
 		event.preventDefault();

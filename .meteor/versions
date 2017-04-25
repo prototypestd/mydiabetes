@@ -91,6 +91,7 @@ mongo@1.1.16
 mongo-id@1.0.6
 mongo-livedata@1.0.12
 mrt:moment@2.8.1
+newswim:particles@2.0.0
 nimble:restivus@0.8.12
 npm-bcrypt@0.9.2
 npm-mongo@2.2.24
