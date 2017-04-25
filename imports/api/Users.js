@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { UserInfo, Invites } from '/lib/collections';
+import { AccountsLockout } from 'meteor/lucasantoniassi:accounts-lockout';
+
+(new AccountsLockout()).startup();
 
 if (Meteor.isServer) {
 	
