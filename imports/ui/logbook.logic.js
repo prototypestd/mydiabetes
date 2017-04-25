@@ -61,7 +61,7 @@ Template.logbook.events({
 		if(result){
 			swal({
 				title: 'High Glucose Detected!',
-				text: 'It seems that you\'re glucose reading is a bit high.\n Would you like a recommended correction dose?',
+				text: 'It seems that you\'re glucose reading is a bit high.\n Would you like a recommended correction dose? It is also recommended that you also check your ketone.',
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonText: 'Yes!',
