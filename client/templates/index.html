@@ -56,6 +56,37 @@
 <template name="login">
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title">Signin/Register</h2>
-		{{> atForm}}
+	<ul uk-tab>
+	    <li><a href="#">Signin</a></li>
+	    <li><a href="#">Register</a></li>
+	</ul>
+
+	<ul class="uk-switcher uk-margin">
+	    	<li>
+			<form class="signin">
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Email/Username" name="email">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="password" placeholder="Password" name="password">
+				</div>
+				<input type="submit"/>
+			</form>
+		</li>
+	    	<li>
+			<form class="register">
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Username" name="username">
+				</div>
+				<div class="uk-margin">
+					<input class="uk-input" type="text" placeholder="Email" name="email">
+				</div>
+				<div class="uk-margin">
+					<input class="password uk-input" type="password" placeholder="Password" name="password">
+				</div>
+				<input type="submit"/>
+			</form>
+		</li>
+	</ul>
     </div>
 </template>

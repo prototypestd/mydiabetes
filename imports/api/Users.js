@@ -3,7 +3,25 @@ import { Mongo } from 'meteor/mongo';
 import { UserInfo, Invites } from '/lib/collections';
 import { AccountsLockout } from 'meteor/lucasantoniassi:accounts-lockout';
 
-(new AccountsLockout()).startup();
+/*
+ * Limits the login attempt to 3 tries.
+ * Locks the account for 60 seconds if more
+ * than 3 wrong attempts were made.
+ *
+ * TODO: Trial & Error for lockoutPeriod
+ */
+(new AccountsLockout({
+  	knownUsers: {
+   		failuresBeforeLockout: 3,
+   		lockoutPeriod: 60,
+    		failureWindow: 15,
+  	},
+  	unknownUsers: {
+    		failuresBeforeLockout: 3,
+    		lockoutPeriod: 60,
+    		failureWindow: 15,
+  	},
+})).startup();
 
 if (Meteor.isServer) {
 	
@@ -15,8 +33,7 @@ if (Meteor.isServer) {
 		return Meteor.users.find({});
 	});
 	
-	// This code only runs on the server
-    Meteor.publish('userinfo', function userInfo() {
+   	Meteor.publish('userinfo', function userInfo() {
 		return UserInfo.find({
 			$or: [
 				{ userId: this.userId }
@@ -24,7 +41,7 @@ if (Meteor.isServer) {
 		});
 	});
 	
-    Meteor.publish('userinfoadmin', function userInfo() {
+    	Meteor.publish('userinfoadmin', function userInfo() {
 		return UserInfo.find({});
 	});
 	
@@ -39,7 +56,7 @@ if (Meteor.isServer) {
 		}
 	});
 	
-    Meteor.publish('invites', function userInfo() {
+    	Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
 	});
 	

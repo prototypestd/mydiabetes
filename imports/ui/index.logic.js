@@ -14,6 +14,12 @@ Template.index.onRendered(function() {
   });
 });
 
+Template.index.helpers({
+    	strength() {
+		return Session.get('index/pass/strength');
+	}
+});
+
 Template.index.events({
 	'submit .request-beta' (event) {
 		event.preventDefault();
@@ -33,4 +39,66 @@ Template.index.events({
 		});
 	}
 });
+
+Template.login.events({
+	'submit .signin' (event) {
+		event.preventDefault();
+
+		const target = event.target;
+		const email = target.email.value;
+		const password = target.password.value;
+
+		Meteor.loginWithPassword(email, password, (error) => {
+			if(error){
+				swal({
+					title: 'Something happened!',
+					text: error.message,
+					type: 'warning',
+					showCancelButton: false,
+					confirmButtonText: 'Ok!',
+					cancelButtonText: 'No',
+				});
+			}else{
+				BlazeLayout.render('content', {main: 'dashboard'});
+			}
+		});
+	},
+	'submit .register' (event) {
+		event.preventDefault();
+
+		const target = event.target;
+		const username = target.username.value;
+		const email = target.email.value;
+		const password = target.password.value;
+
+		Accounts.createUser({
+			username: username,
+			email: email,
+			password: password
+		}, (error) => {
+			if(error){
+				swal({
+					title: 'Something happened!',
+					text: error.message,
+					type: 'warning',
+					showCancelButton: false,
+					confirmButtonText: 'Ok!',
+					cancelButtonText: 'No',
+				});
+			}else{
+				BlazeLayout.render('content', {main: 'dashboard'});
+			}
+		});
+	},
+	'keyup .password' (event) {
+
+		var zxcvbn = require('zxcvbn');
+		var password = $(event.target).val();
+		var pass_strength = zxcvbn(password);
+		console.log('Password Strength : ' + pass_strength.score );
+		Session.set('index/pass/strength', pass_strength.score );
+
+	}
+});
+
 		
