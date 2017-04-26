@@ -10,7 +10,7 @@
 							</ul>
 							
 							<ul class="uk-switcher">
-								<li><div class="uk-overflow-auto"><table class="uk-table uk-table-divider">
+								<li><div class="uk-overflow-auto"><table id="logbook" class="uk-table uk-table-divider">
 									<caption>My Logbook for <b>{{curYear}}</b></caption>
 									{{#if Template.subscriptionsReady}}
 									<thead>
@@ -66,7 +66,11 @@
 						<div class="uk-card uk-card-default uk-card-body">
 							<div class="uk-flex uk-flex-column">
 									<a href="#add-record-modal" class="uk-button uk-button-default" uk-toggle>Add Record</a>
-									<a href="" class="uk-button uk-button-default uk-margin-small-top">Settings</a>
+									<ul class="uk-iconnav uk-padding-small" style="margin:auto">
+										<li><button class="exportPDF uk-button uk-button-default" style="padding:5px" uk-icon="icon: cloud-download" title="Download Logbook" uk-tooltip></button></li>
+										<li><button class="uk-button uk-button-default" style="padding:5px" uk-icon="icon: search" title="Search Records" uk-tooltip></button></li>
+										<li><button class="uk-button uk-button-default" style="padding:5px" uk-icon="icon: settings" title="Settings" uk-tooltip></button></li>
+									</ul>
 							</div>
 						</div>
 						<div class="uk-card uk-card-default uk-card-body">

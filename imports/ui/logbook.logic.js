@@ -236,6 +236,20 @@ Template.logbook.events({
 	  Meteor.call('calculator.calcICR', function(error, result) { if(error) { Bert.alert(error.reason, 'danger', 'growl-top-right'); } });
 	  Meteor.call('calculator.calcISF', function(error, result) { if(error) { Bert.alert(error.reason, 'danger', 'growl-top-right'); } });
   },
+  'click .exportPDF'() {
+    var doc = new jsPDF('landscape');
+	
+	var today = new Date();
+	var day = today.getDate();
+	var month = today.getMonth()+1;
+	var curDate = day + '/' + month;
+	
+    doc.text("Blood Glucose Records until " + curDate, 14, 16);
+    var elem = document.getElementById("logbook");
+    var res = doc.autoTableHtmlToJson(elem);
+    doc.autoTable(res.columns, res.data, {startY: 20});
+    doc.save('bg-' + curDate + '.pdf');
+  },
   'submit .calcCorrection'(event, template) {
     // Prevent default browser form submit
     event.preventDefault();
