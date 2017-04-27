@@ -51,9 +51,4 @@ var postLogout = function(){
     BlazeLayout.render('content', {main: 'index'});
 };
 
-AccountsTemplates.configure({
-    onSubmitHook: loginFunc,
-	onLogoutHook: postLogout
-});
-
 

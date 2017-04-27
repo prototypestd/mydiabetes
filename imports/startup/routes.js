@@ -7,7 +7,8 @@ BlazeLayout.setRoot('body');
 FlowRouter.route('/', {
   name: 'App_Content',
   action() {
-	  if(Meteor.user() === undefined){
+	  console.log(Meteor.userId());
+	  if(Meteor.userId() != null){
 		BlazeLayout.render('content', {main: 'dashboard'});
 	  }else{
 		BlazeLayout.render('content', {main: 'index'});
@@ -18,6 +19,8 @@ FlowRouter.route('/', {
 FlowRouter.route('/signup/:token', {
 	name: 'signup',
 	action( params ){
+		Session.set('beta_token', params.token);
+		BlazeLayout.render('content', {main: 'index'});
 	}
 });
 

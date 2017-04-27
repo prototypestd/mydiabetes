@@ -73,5 +73,9 @@ Template.header.events({
 		event.preventDefault();
 		
 		Template.instance().state.set(event.target.dataset.state);
+	},
+	'click .logout' (event){
+		Meteor.logout();
+		BlazeLayout.render('content', {main: 'index'});
 	}
 });

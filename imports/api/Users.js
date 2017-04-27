@@ -45,17 +45,6 @@ if (Meteor.isServer) {
 		return UserInfo.find({});
 	});
 	
-	AccountsTemplates.configure({
-		postSignUpHook: (userId, info) => {
-			UserInfo.insert({
-				userId: userId,
-				totalDose: 0,
-				icr: 0,
-				isf: 0
-			});
-		}
-	});
-	
     	Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
 	});
@@ -128,6 +117,34 @@ Meteor.methods({
 		check(userId, String);
 		
 		Invites.remove(userId);
+	},
+	'beta.checkInvite' (token){
+		check(token, String);
+		console.log(token);
+		
+		if(Invites.find({token: token}).count() > 0){
+			var invite = Invites.find({token: token})._id;
+			
+			Invites.remove(invite);
+			return true;
+		}
+			
+		return false;
+	},
+	'users.addUserInfo' (userId){
+		UserInfo.insert({
+			userId: userId,
+			totalDose: 0,
+			icr: 0,
+			isf: 0
+		}, (error) => {
+			if(error){
+				console.log(error.message);
+				return false;
+			}else{
+				return true;
+			}
+		});
 	},
 	'users.deleteUser' (userId){
 		check(userId, String);

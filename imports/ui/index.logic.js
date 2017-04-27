@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
 Template.index.onRendered(function() {
-  let settings = 'particles.json';
+  let settings = '/particles.json';
   this.autorun(() => {
     if (particlesJS) {
       console.log(`loading particles.js config from "${settings}"...`)
@@ -70,23 +70,52 @@ Template.login.events({
 		const username = target.username.value;
 		const email = target.email.value;
 		const password = target.password.value;
-
-		Accounts.createUser({
-			username: username,
-			email: email,
-			password: password
-		}, (error) => {
-			if(error){
+		const token = Session.get('beta_token');
+		
+		Meteor.call('beta.checkInvite', token, (err, res) => {
+			if(res == false) {
 				swal({
 					title: 'Something happened!',
-					text: error.message,
+					text: 'Invalid beta token',
 					type: 'warning',
 					showCancelButton: false,
 					confirmButtonText: 'Ok!',
 					cancelButtonText: 'No',
 				});
-			}else{
-				BlazeLayout.render('content', {main: 'dashboard'});
+			} else {
+				let user = Accounts.createUser({
+					username: username,
+					email: email,
+					password: password
+				}, (error) => {
+					if(error){
+						swal({
+							title: 'Something happened!',
+							text: error.message,
+							type: 'warning',
+							showCancelButton: false,
+							confirmButtonText: 'Ok!',
+							cancelButtonText: 'No',
+						});
+					}
+				});
+				
+				console.log(user);
+				Meteor.call('user.addUserInfo', user, (err,res) => {
+					if(err){
+						swal({
+							title: 'Something happened!',
+							text: err.message,
+							type: 'warning',
+							showCancelButton: false,
+							confirmButtonText: 'Ok!',
+							cancelButtonText: 'No',
+						});
+					}else{
+						FlowRouter.go('/');
+						//BlazeLayout.render('content', {main: 'dashboard'});
+					}
+				});
 			}
 		});
 	},
