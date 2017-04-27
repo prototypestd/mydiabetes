@@ -76,6 +76,6 @@ Template.header.events({
 	},
 	'click .logout' (event){
 		Meteor.logout();
-		BlazeLayout.render('content', {main: 'index'});
+		FlowRouter.go('/');
 	}
 });

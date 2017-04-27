@@ -23,6 +23,22 @@ import { AccountsLockout } from 'meteor/lucasantoniassi:accounts-lockout';
   	},
 })).startup();
 
+Accounts.onCreateUser((options,user) => {
+	UserInfo.insert({
+		userId: user._id,
+		totalDose: 0,
+		icr: 0,
+		isf: 0
+	}, (error) => {
+		if(error){
+			console.log(error.message);
+			return;
+		}
+	});
+	
+	return user;
+});
+
 if (Meteor.isServer) {
 	
 	UserInfo.permit(['insert', 'update', 'remove']).ifLoggedIn().allowInClientCode();
@@ -149,7 +165,7 @@ Meteor.methods({
 	'users.deleteUser' (userId){
 		check(userId, String);
 		
-		Meteor.user.remove(userId);
+		Meteor.users.remove(userId);
 	},
 	'user.setRoleOnUser' ( options ) {
 		check( options, {

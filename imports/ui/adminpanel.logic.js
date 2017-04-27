@@ -124,38 +124,6 @@ Template.adminpanel.events({
 			}
 		});
 	},
-	'click .deleteUser' () {
-		swal({
-			title: 'Are you sure?',
-			text: 'You would have to request the user to register back later!',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Yes, delete!',
-			cancelButtonText: 'No, keep',
-		}).then(function() {
-			Meteor.call('user.deleteUser', this._id, function(error, result) {
-				if(error){
-					swal('Oops...', 'Something went wrong!', 'error');
-					console.log(error.reason);
-				}else{
-					swal(
-						'Deleted!',
-						'The user was deleted ' + grin,
-						'success'
-					);
-				}
-			});
-		}, function(dismiss) {
-			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
-			if (dismiss === 'cancel') {
-				swal(
-					'Cancelled',
-					'The user was not deleted ' + cry,
-					'error'
-				);
-			}
-		});
-	},
     'change [name="userRole"]': function( event, template ) {
 		let role = $( event.target ).find( 'option:selected' ).val();
 
@@ -230,6 +198,41 @@ Template.myuser.events({
 		
 		Template.instance().userId.set(this._id);
 		Session.set('curUserId',this._id);
-	}
+	},
+	'click .deleteUser' () {
+		console.log(this._id);
+		
+		var userid = this._id;
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to request the user to register back later!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
+			Meteor.call('users.deleteUser', userid, function(error, result) {
+				if(error){
+					swal('Oops...', error.message, 'error');
+					console.log(error.reason);
+				}else{
+					swal(
+						'Deleted!',
+						'The user was deleted ' + grin,
+						'success'
+					);
+				}
+			});
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The user was not deleted ' + cry,
+					'error'
+				);
+			}
+		});
+	},
 });
 		

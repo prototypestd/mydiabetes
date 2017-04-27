@@ -83,7 +83,7 @@ Template.login.events({
 					cancelButtonText: 'No',
 				});
 			} else {
-				let user = Accounts.createUser({
+				Accounts.createUser({
 					username: username,
 					email: email,
 					password: password
@@ -97,23 +97,8 @@ Template.login.events({
 							confirmButtonText: 'Ok!',
 							cancelButtonText: 'No',
 						});
-					}
-				});
-				
-				console.log(user);
-				Meteor.call('user.addUserInfo', user, (err,res) => {
-					if(err){
-						swal({
-							title: 'Something happened!',
-							text: err.message,
-							type: 'warning',
-							showCancelButton: false,
-							confirmButtonText: 'Ok!',
-							cancelButtonText: 'No',
-						});
 					}else{
 						FlowRouter.go('/');
-						//BlazeLayout.render('content', {main: 'dashboard'});
 					}
 				});
 			}
