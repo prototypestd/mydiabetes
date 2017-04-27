@@ -1,6 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Invites, UserInfo } from '/lib/collections';
 
+window.Invites = Invites;
+
 Template.adminpanel.onCreated(function(){
 	this.subscribe("userlist");
 	this.subscribe("invites");
@@ -59,71 +61,6 @@ var grin = emojione.toImage(':grin:');
 var cry = emojione.toImage(':cry:');
 
 Template.adminpanel.events({
-	'click .sendInvite' () {
-		swal({
-			title: 'Are you sure?',
-			text: 'You would have to invite back the user!',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Yes, delete!',
-			cancelButtonText: 'No, keep',
-		}).then(function() {
-			Meteor.call('beta.sendInvite', this._id, function(error, result) {
-				if(error){
-					swal('Oops...', 'Something went wrong!', 'error');
-					console.log(error.reason);
-				}else{
-					swal(
-						'Deleted!',
-						'The invite was sent ' + grin,
-						'success'
-					);
-				}
-			});
-		}, function(dismiss) {
-			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
-			if (dismiss === 'cancel') {
-				swal(
-					'Cancelled',
-					'The invite was not sent ' + cry,
-					'error'
-				);
-			}
-		});
-	},
-	'click .deleteInvite' () {
-		swal({
-			title: 'Are you sure?',
-			text: 'You would have to invite back the user!',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Yes, delete!',
-			cancelButtonText: 'No, keep',
-		}).then(function() {
-			console.log(this._id);
-			Meteor.call('beta.deleteInvite', this._id, function(error, result) {
-				if(error){
-					swal('Oops...', 'Something went wrong!', 'error');
-					console.log(error.reason);
-				}else{
-					swal(
-						'Deleted!',
-						'The invite was cancelled ' + grin,
-						'success'
-					);
-				}
-			});
-		}, function(dismiss) {
-			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
-			if (dismiss === 'cancel') {
-				swal(
-					'Cancelled',
-					'The invite was not cancelled ' + cry,
-					'error'
-				);
-			}
-		});
-	},
     'change [name="userRole"]': function( event, template ) {
 		let role = $( event.target ).find( 'option:selected' ).val();
 
@@ -190,6 +127,79 @@ Template.adminpanel.events({
 			}
 		});
 	},
+});
+
+Template.userinvite.events({
+	'click .sendInvite' () {
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to invite back the user!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
+			console.log(Session.get('invitesendid'));
+		
+			var userid = Session.get('invitesendid');
+			Meteor.call('beta.sendInvite', userid, function(error, result) {
+				if(error){
+					swal('Oops...', error.message, 'error');
+					console.log(error.reason);
+				}else{
+					swal(
+						'Deleted!',
+						'The invite was sent ' + grin,
+						'success'
+					);
+				}
+			});
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The invite was not sent ' + cry,
+					'error'
+				);
+			}
+		});
+	},
+	'click .deleteInvite' () {
+		swal({
+			title: 'Are you sure?',
+			text: 'You would have to invite back the user!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete!',
+			cancelButtonText: 'No, keep',
+		}).then(function() {
+			console.log(Session.get('invitedeleteid'));
+		
+			var userid = Session.get('invitedeleteid');
+			Meteor.call('beta.deleteInvite', userid, function(error, result) {
+				if(error){
+					swal('Oops...', error.message, 'error');
+					console.log(error.reason);
+				}else{
+					swal(
+						'Deleted!',
+						'The invite was cancelled ' + grin,
+						'success'
+					);
+				}
+			});
+		}, function(dismiss) {
+			// dismiss can be 'cancel', 'overlay', 'close', 'timer'
+			if (dismiss === 'cancel') {
+				swal(
+					'Cancelled',
+					'The invite was not cancelled ' + cry,
+					'error'
+				);
+			}
+		});
+	}
 });
 
 Template.myuser.events({

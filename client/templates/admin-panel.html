@@ -46,7 +46,7 @@
 									</thead>
 									<tbody>
 									  {{#each tasks}}
-										{{> invite}}
+										{{> userinvite}}
 									  {{/each}}
 									</tbody>
 									{{else}}
@@ -158,15 +158,15 @@
 	</div>
 </template>
 
-<template name="invite">
+<template name="userinvite">
 	<tr>
 		<td>{{email}}</td>
 		<td>{{invited}}</td>
 		<td>{{requested}}</td>
-		<td>{{token}}</td>
+		<td>{{token}} | id: {{_id}}</td>
 		<td>{{accountCreated}}</td>
 		{{#if isInRole 'super-admin' 'staff'}}
-		<td>{{#if invited}} {{else}}<a class="sendInvite" title="Send Invite" uk-tooltip><i class="fa fa-envelope"></i></a> {{/if}}<a class="deleteInvite" title="Delete Invite" uk-tooltip><i class="fa fa-trash"></i></a></td>
+		<td>{{#if invited}} {{else}}<a class="sendInvite" title="Send Invite" uk-tooltip onclick="Session.set('invitesendid', '{{_id}}');"><i class="fa fa-envelope"></i></a> {{/if}}<a class="deleteInvite" title="Delete Invite" uk-tooltip onclick="Session.set('invitedeleteid', '{{_id}}');"><i class="fa fa-trash"></i></a></td>
 		{{/if}}
 	</tr>
 </template>

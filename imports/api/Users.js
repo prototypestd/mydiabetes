@@ -139,9 +139,14 @@ Meteor.methods({
 		console.log(token);
 		
 		if(Invites.find({token: token}).count() > 0){
-			var invite = Invites.find({token: token})._id;
+			var invite = Invites.findOne({token: token})._id;
 			
-			Invites.remove(invite);
+			console.log(invite);
+			Invites.remove(invite, (err) => {
+				if(err){
+					console.log(err.message);
+				}
+			});
 			return true;
 		}
 			
