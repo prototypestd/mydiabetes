@@ -21,6 +21,7 @@ import '../imports/ui/index.logic.js';
 import '../imports/ui/logbook.logic.js';
 import '../imports/ui/foodlibrary.logic.js';
 import '../imports/ui/adminpanel.logic.js';
+import '../imports/ui/userchat.logic.js';
 
 AutoForm.debug();
 
@@ -50,5 +51,3 @@ var loginFunc = function(error, state){
 var postLogout = function(){
     BlazeLayout.render('content', {main: 'index'});
 };
-
-

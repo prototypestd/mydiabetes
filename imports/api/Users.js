@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { UserInfo, Invites } from '/lib/collections';
+import { UserInfo, Invites, UserChats } from '/lib/collections';
 import { AccountsLockout } from 'meteor/lucasantoniassi:accounts-lockout';
 
 /*
@@ -23,6 +23,10 @@ import { AccountsLockout } from 'meteor/lucasantoniassi:accounts-lockout';
   	},
 })).startup();
 
+/*
+ * Hook on to onCreateUser to allow
+ * insertion of totalDose into database
+ */
 Accounts.onCreateUser((options,user) => {
 	UserInfo.insert({
 		userId: user._id,
@@ -35,36 +39,44 @@ Accounts.onCreateUser((options,user) => {
 			return;
 		}
 	});
-	
+
 	return user;
 });
 
 if (Meteor.isServer) {
-	
+
 	UserInfo.permit(['insert', 'update', 'remove']).ifLoggedIn().allowInClientCode();
-	
+
 	Invites.permit(['insert', 'update', 'remove']);
-	
+
 	Meteor.publish('userlist', function userList() {
 		return Meteor.users.find({});
 	});
-	
-   	Meteor.publish('userinfo', function userInfo() {
+
+	Meteor.publish('userinfo', function userInfo() {
 		return UserInfo.find({
 			$or: [
 				{ userId: this.userId }
 			],
 		});
 	});
-	
-    	Meteor.publish('userinfoadmin', function userInfo() {
+
+  Meteor.publish('userinfoadmin', function userInfo() {
 		return UserInfo.find({});
 	});
-	
-    	Meteor.publish('invites', function userInfo() {
+
+  Meteor.publish('invites', function userInfo() {
 		return Invites.find({});
 	});
-	
+
+  Meteor.publish('userchats', function userInfo() {
+    return UserChats.find({
+      $or: [
+        { userId: this.userId }
+      ],
+    });
+  });
+
 	Impersonate.adminGroups = [
 		{ role: "super-admin", group: "staff" }
 	];
@@ -72,17 +84,17 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	/**
-	 * Adds a user to the invite list 
+	 * Adds a user to the invite list
 	 *
 	 * @param {String} email User email
 	 */
 	'beta.addToInvites' (email, reason){
 		check(email, String);
 		check(reason, String);
-		
+
 		let emailExists = Invites.findOne( { email: email } ),
 			inviteCount = Invites.find( {}, { fields: { _id: 1 } } ).count();
-			
+
 		if(!emailExists){
 			return Invites.insert({
 				email: email,
@@ -99,14 +111,14 @@ Meteor.methods({
 	},
 	'beta.sendInvite' (inviteId){
 		check(inviteId, String);
-		
+
 		const urls = {
 			development: 'http://localhost:3000/signup/',
 			production: '#'
 		};
 
 		let invite = Invites.findOne({_id: inviteId });
-		
+
 		if(invite){
 		  SSR.compileTemplate( 'inviteEmail', Assets.getText( 'email/templates/invite.html' ) );
 
@@ -123,7 +135,7 @@ Meteor.methods({
 			$set: {
 			  invited: true,
 			  dateInvited: ( new Date() ).toISOString()
-			} 
+			}
 		  });
 		} else {
 		  throw new Meteor.Error( 'not-found', 'Sorry, an invite with that ID could not be found.' );
@@ -131,16 +143,16 @@ Meteor.methods({
 	},
 	'beta.deleteInvite' (userId){
 		check(userId, String);
-		
+
 		Invites.remove(userId);
 	},
 	'beta.checkInvite' (token){
 		check(token, String);
 		console.log(token);
-		
+
 		if(Invites.find({token: token}).count() > 0){
 			var invite = Invites.findOne({token: token})._id;
-			
+
 			console.log(invite);
 			Invites.remove(invite, (err) => {
 				if(err){
@@ -149,7 +161,7 @@ Meteor.methods({
 			});
 			return true;
 		}
-			
+
 		return false;
 	},
 	'users.addUserInfo' (userId){
@@ -169,7 +181,7 @@ Meteor.methods({
 	},
 	'users.deleteUser' (userId){
 		check(userId, String);
-		
+
 		Meteor.users.remove(userId);
 	},
 	'user.setRoleOnUser' ( options ) {
@@ -200,11 +212,11 @@ Meteor.methods({
 	*/
 	'users.updateRoles' (targetUserId, roles, group){
 		var loggedInUser = Meteor.user();
-		
+
 		if(!loggedInUser || !Roles.userIsInRole(loggedInUser, ['super-admin'])){
 			throw new Meteor.Error(403, "Access denied");
 		}
-		
+
 		Roles.setUserRoles(targetUserId, roles, group);
 	},
 	  /**
@@ -241,11 +253,11 @@ Meteor.methods({
 		if (Roles.userIsInRole(userId, permissions, group)) {
 		  return true;
 		}
-		
+
 		// no specific permissions found returning false
 		return false;
 	  },
-	  
+
 	  hasDoctorAccess() {
 		return this.hasPermission(["doctor", "super-admin"]);
 	  },

@@ -45,7 +45,7 @@ Template.logbook.events({
   'submit .new-record'(event) {
     // Prevent default browser form submit
     event.preventDefault();
- 
+
     // Get value from form element
     const target = event.target;
     const prebreakfast = target.prebreakfast.value;
@@ -53,10 +53,10 @@ Template.logbook.events({
     const predinner = target.predinner.value;
     const prebed = target.prebed.value;
     const midnight = target.midnight.value;
- 
+
     // Insert a record into the collection
     Meteor.call('logbook.insert', prebreakfast, prelunch, predinner, prebed, midnight);
-	
+
 	Meteor.call('logbook.checkBreakfast',prebreakfast, function(error, result){
 		if(result){
 			swal({
@@ -91,7 +91,7 @@ Template.logbook.events({
 			});
 		}
 	});
-	
+
 	Meteor.call('logbook.checkBreakfast',prelunch, function(error, result){
 		if(result){
 			swal({
@@ -126,7 +126,7 @@ Template.logbook.events({
 			});
 		}
 	});
-	
+
 	Meteor.call('logbook.checkBreakfast',predinner, function(error, result){
 		if(result){
 			swal({
@@ -161,7 +161,7 @@ Template.logbook.events({
 			});
 		}
 	});
-	
+
 	Meteor.call('logbook.checkBreakfast',prebed, function(error, result){
 		if(result){
 			swal({
@@ -196,7 +196,7 @@ Template.logbook.events({
 			});
 		}
 	});
-	
+
     // Clear form
     target.prebreakfast.value = '';
     target.prelunch.value = '';
@@ -238,12 +238,12 @@ Template.logbook.events({
   },
   'click .exportPDF'() {
     var doc = new jsPDF('landscape');
-	
+
 	var today = new Date();
 	var day = today.getDate();
 	var month = today.getMonth()+1;
 	var curDate = day + '/' + month;
-	
+
     doc.text("Blood Glucose Records until " + curDate, 14, 16);
     var elem = document.getElementById("logbook");
     var res = doc.autoTableHtmlToJson(elem);
@@ -253,11 +253,11 @@ Template.logbook.events({
   'submit .calcCorrection'(event, template) {
     // Prevent default browser form submit
     event.preventDefault();
- 
+
     // Get value from form element
     const target = event.target;
 	const reading = target.reading.value;
- 
+
 	if(reading > 6){
 		// Insert a record into the collection
 		Meteor.call('calculator.calcCorrection', reading, function(error, result) {
@@ -279,7 +279,7 @@ Template.logbook.events({
 			'info'
 		);
 	}
- 
+
     // Clear form
 	target.reading.value = '';
   },

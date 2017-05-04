@@ -6,28 +6,28 @@
 					<nav class="uk-navbar">
 						<div class="uk-navbar-left">
 							<a href="/" class="uk-navbar-item uk-logo uk-active" style="color:#fff">myDiabetes</a>
-						</div> 
+						</div>
 						<div class="uk-navbar-right">
 							<ul class="uk-navbar-nav uk-visible@m">
-								<li><a href="/about" style="color:#fff">About</a></li> 
+								<li><a href="/about" style="color:#fff">About</a></li>
 							</ul>
 						</div>
 					</nav>
 				</div>
 			</div>
-			
+
 			<div uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-section uk-section-small uk-flex uk-flex-middle uk-text-center" style="box-sizing: border-box; min-height: calc(100vh - 183px);">
-			
+
 				<div class="uk-width-1-1">
 					<div class="uk-container">
 						<p class="uk-margin-medium uk-text-lead" style="color:#fff;">
 							Welcome to myDiabetes,<br class="uk-visible@s">
-							a new initiative for type-1 diabetic children.
-						</p> 
+							a new way of managing your diabetes.
+						</p>
 						<div uk-grid="" class="uk-child-width-auto uk-grid-medium uk-flex-inline uk-flex-center uk-grid">
 							<div>
 								<a href="#beta-signup" class="uk-button uk-button-danger" uk-toggle>Beta Signup</a>
-							</div> 
+							</div>
 							<div>
 								<a href="#login-modal" class="uk-button uk-button-danger" uk-toggle>Login</a>
 							</div>
@@ -35,17 +35,18 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="uk-section-small">
 				<div class="uk-container uk-container-expand uk-text-center uk-position-relative">
 					<ul uk-margin="" class="uk-subnav uk-flex-inline uk-flex-center uk-margin-remove-bottom">
-						<li><a href="#privacymodal" class="uk-text-lowercase" uk-toggle>privacy policy</a></li> 
-						<li><a href="#securitymodal" class="uk-text-lowercase" uk-toggle>security policy</a></li> 
-					</ul> 
+						<li><a href="#privacymodal" class="uk-text-lowercase" uk-toggle>privacy policy</a></li>
+						<li>Copyright &copy; 2017, Prototype Studios</li>
+						<li><a href="#securitymodal" class="uk-text-lowercase" uk-toggle>security policy</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
-		
+
 		<div id="beta-signup" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				<h2 class="uk-modal-title">Request for Beta access</h2>
@@ -60,17 +61,17 @@
 				</form>
 			</div>
 		</div>
-		
+
 		<div id="login-modal" uk-modal>
 			{{> login}}
 		</div>
-		
+
 		<div id="privacymodal" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				{{> privacypolicy}}
 			</div>
 		</div>
-		
+
 		<div id="securitymodal" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
 				{{> securitypolicy}}
@@ -82,10 +83,10 @@
 <template name="privacypolicy">
 	<h2 class="uk-modal-title">Privacy Policy</h2>
     <button class="uk-modal-close-default" type="button" uk-close></button>
-	
+
 	<div class="uk-margin">
 		<p>Thanks for trusting us with your personal information. We understand that some of you may not want your to disclose your personal information, that's ok. Holding onto your private information is a serious responsibility, and we want you to know how we're handling it.</p>
-	
+
 		<h3>What information does myDiabetes collect and why?</h3>
 		<h4>Information from web browsers</h4>
 
@@ -96,7 +97,7 @@
 		<h5>Why do we collect this?</h5>
 
 		<p>We collect this information to better understand how our website visitors use myDiabetes, and to monitor and protect the security of the website.</p>
-		
+
 		<h4>Information from users with accounts</h4>
 
 		<p>If you <strong>create an account</strong>, we require some basic information at the time of account creation. You will create your own user name and password, and we will ask you for a valid email account. You also have the option to give us more information if you want to, and this may include "User Personal Information."</p>
@@ -217,7 +218,7 @@
 <template name="securitypolicy">
 	<h2 class="uk-modal-title">Security Policy</h2>
     <button class="uk-modal-close-default" type="button" uk-close></button>
-	
+
 	<div class="uk-margin">
 		<p>We know that security is a main concern when using an internet service, and we're very fussy about it. After all, even our boss uses myDiabetes.</p>
 
@@ -267,7 +268,10 @@
 	</ul>
 
 	<ul class="uk-switcher uk-margin">
-	    	<li>
+	  <li>
+			<div class="uk-margin">
+				<a href="#">Are you a doctor?</a>
+			</div>
 			<form class="signin">
 				<div class="uk-margin">
 					<input class="uk-input" type="text" placeholder="Email/Username" name="email">
@@ -275,10 +279,10 @@
 				<div class="uk-margin">
 					<input class="uk-input" type="password" placeholder="Password" name="password">
 				</div>
-				<input class="uk-button uk-button-default" type="submit"/>
+				<input class="uk-button uk-button-danger" type="submit"/>
 			</form>
 		</li>
-	    	<li>
+	  <li>
 			<form class="register">
 				<div class="uk-margin">
 					<input class="uk-input" type="text" placeholder="Username" name="username">
@@ -289,7 +293,7 @@
 				<div class="uk-margin">
 					<input class="password uk-input" type="password" placeholder="Password" name="password">
 				</div>
-				<input class="uk-button uk-button-default" type="submit"/>
+				<input class="uk-button uk-button-danger" type="submit"/>
 			</form>
 		</li>
 	</ul>

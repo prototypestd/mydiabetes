@@ -1,0 +1,55 @@
+<template name="userchats">
+  <div id="userchats" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" style="height:100%;padding:0">
+      <div class="uk-modal-header">
+				<h2 class="uk-modal-title">My Messages</h2>
+				<button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+			</div>
+
+      <div class="uk-modal-body">
+        <div uk-grid>
+          <div class="uk-width-expand">
+            <div class="uk-overflow-auto">
+              <table id="chatTable" class="uk-table uk-table-divider">
+                <caption>My Messages</caption>
+                {{#if Template.subscriptionsReady}}
+                <thead>
+                  <tr>
+                    <th>From</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each chats}}
+                  {{> chat}}
+                  {{/each}}
+                </tbody>
+                {{else}}
+                  {{> spinner}}
+                {{/if}}
+              </table>
+            </div>
+          </div>
+          <div>
+            <div class="uk-card uk-card-default uk-card-body">
+              <div class="uk-flex uk-flex-column">
+                  <a href="#new-message-modal" class="uk-button uk-button-default" uk-toggle>New Message</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="chat">
+	<tr>
+		<td>{{receiverId}}</td>
+		<td>{{message}}</td>
+		<td>{{timestamp}}</td>
+		<td></td>
+	</tr>
+</template>

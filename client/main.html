@@ -1,18 +1,17 @@
 <head>
   <title>myDiabetes</title>
-  
+
   <link rel="manifest" href="app.json">
-  
+
   <script src="/js/jquery.min.js"></script>
   <script src="/js/uikit.min.js"></script>
   <script src="/js/uikit-icons.min.js"></script>
-  
+
   <script src="/js/plugins/jspdf/jspdf.min.js"></script>
   <script src="/js/plugins/jspdf/autotable.js"></script>
 </head>
 
 <body>
-	{{> status }}
 	<div>
 		{{#if isLoggedIn}}
 			{{> header}}

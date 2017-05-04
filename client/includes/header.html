@@ -5,13 +5,18 @@
 					<nav class="uk-navbar">
 						<div class="uk-navbar-left">
 							<a href="/" class="uk-navbar-item uk-logo uk-active">myDiabetes</a>
-						</div> 
+							<ul class="uk-navbar-nav uk-visible@m">
+								<li>
+									<a href="#userchats" title="My Messages" uk-tooltip uk-toggle><i class="fa fa-comments-o" aria-hidden="true"></i></a>
+								</li>
+							</ul>
+						</div>
 						<div class="uk-navbar-right">
 							<ul class="uk-navbar-nav uk-visible@m">
 								{{#if isDashboard}}
-									<li class="uk-active"><a data-state="dashboard" onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li> 
+									<li class="uk-active"><a data-state="dashboard" onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li>
 								{{else}}
-									<li><a data-state="dashboard" onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li> 
+									<li><a data-state="dashboard" onclick="BlazeLayout.render('content', {main: 'dashboard'});">My Dashboard</a></li>
 								{{/if}}
 								{{#if isLogbook}}
 									<li class="uk-active"><a data-state="logbook" onclick="BlazeLayout.render('content', {main: 'logbook'});">My Logbook</a></li>
@@ -47,7 +52,7 @@
 											{{#if isInRole 'super-admin' 'staff'}}
 											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
 											{{/if}}
-											
+
 											{{#if isImpersonating}}
 											<li><a onclick="Impersonate.undo();" class="logout" style="color:#999 !important;">Logout</a></li>
 											{{else}}
@@ -65,7 +70,7 @@
 											{{#if isInRole 'super-admin' 'staff'}}
 											<li><a data-state="burger" onclick="BlazeLayout.render('content', {main: 'adminpanel'});" style="color:#999 !important;">Admin Panel</a></li>
 											{{/if}}
-											
+
 											{{#if isImpersonating}}
 											<li><a onclick="Impersonate.undo();" class="logout" style="color:#999 !important;">Logout</a></li>
 											{{else}}
@@ -81,4 +86,6 @@
 				</div>
 			</div>
 		</div>
+
+		{{> userchats}}
 </template>
