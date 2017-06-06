@@ -5,10 +5,10 @@ Template.index.onRendered(function() {
   let settings = '/particles.json';
   this.autorun(() => {
     if (particlesJS) {
-      console.log(`loading particles.js config from "${settings}"...`)
+      //console.log(`loading particles.js config from "${settings}"...`)
       /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
       particlesJS.load('particles', settings, function () {
-        console.log('callback - particles.js config loaded');
+        //console.log('callback - particles.js config loaded');
       });
     }
   });
@@ -23,11 +23,11 @@ Template.index.helpers({
 Template.index.events({
 	'submit .request-beta' (event) {
 		event.preventDefault();
-		
+
 		const target = event.target;
 		const email = target.email.value;
 		const reason = target.reason.value;
-		
+
 		Meteor.call('beta.addToInvites', email, reason, function(error, result) {
 			if(error){
 				alert(error.reason);
@@ -71,7 +71,7 @@ Template.login.events({
 		const email = target.email.value;
 		const password = target.password.value;
 		const token = Session.get('beta_token');
-		
+
 		Meteor.call('beta.checkInvite', token, (err, res) => {
 			if(res == false) {
 				swal({
@@ -109,10 +109,8 @@ Template.login.events({
 		var zxcvbn = require('zxcvbn');
 		var password = $(event.target).val();
 		var pass_strength = zxcvbn(password);
-		console.log('Password Strength : ' + pass_strength.score );
+		//console.log('Password Strength : ' + pass_strength.score );
 		Session.set('index/pass/strength', pass_strength.score );
 
 	}
 });
-
-		
