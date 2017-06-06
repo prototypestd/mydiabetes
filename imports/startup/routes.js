@@ -7,7 +7,7 @@ BlazeLayout.setRoot('body');
 FlowRouter.route('/', {
   name: 'App_Content',
   action() {
-	  console.log(Meteor.userId());
+	  //console.log(Meteor.userId());
 	  if(Meteor.userId() != null){
 		BlazeLayout.render('content', {main: 'dashboard'});
 	  }else{
