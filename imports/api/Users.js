@@ -265,4 +265,21 @@ Meteor.methods({
 	  getSuperAdminId() {
 		return Roles.getGroupsForUser(this.userId, "super-admin");
 	  },
+
+    'chats.sendMessage' (sender, receiver, message){
+      var timestamp = Math.floor(Date.now() / 1000);
+
+      if(this.hasPermission(['doctor', 'super-admin'], receiver)){
+        UserChats.insert({
+          userId: sender,
+          receiverId: receiver,
+          message,
+          timestamp
+        }, (error) => {
+          if(error) {
+            throw new Error();
+          }
+        });
+      }
+    }
 });
