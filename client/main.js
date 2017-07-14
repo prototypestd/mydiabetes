@@ -23,6 +23,8 @@ import '../imports/ui/foodlibrary.logic.js';
 import '../imports/ui/adminpanel.logic.js';
 import '../imports/ui/userchat.logic.js';
 
+import '../imports/rest/telegram.js';
+
 AutoForm.debug();
 
 // Global Template Logic
