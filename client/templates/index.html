@@ -26,7 +26,7 @@
 						</p>
 						<div uk-grid="" class="uk-child-width-auto uk-grid-medium uk-flex-inline uk-flex-center uk-grid">
 							<div>
-								<a href="#beta-signup" class="uk-button uk-button-danger" uk-toggle>Beta Signup</a>
+								<a href="#beta-signup" class="uk-button uk-button-danger" uk-toggle>Request Code</a>
 							</div>
 							<div>
 								<a href="#login-modal" class="uk-button uk-button-danger" uk-toggle>Login</a>
@@ -40,7 +40,7 @@
 				<div class="uk-container uk-container-expand uk-text-center uk-position-relative">
 					<ul uk-margin="" class="uk-subnav uk-flex-inline uk-flex-center uk-margin-remove-bottom">
 						<li><a href="#privacymodal" class="uk-text-lowercase" uk-toggle>privacy policy</a></li>
-						<li>Copyright &copy; 2017, Prototype Studios</li>
+						<li>Copyright &copy; 2017, Haikal Izzuddin</li>
 						<li><a href="#securitymodal" class="uk-text-lowercase" uk-toggle>security policy</a></li>
 					</ul>
 				</div>
@@ -49,13 +49,10 @@
 
 		<div id="beta-signup" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body">
-				<h2 class="uk-modal-title">Request for Beta access</h2>
+				<h2 class="uk-modal-title">Request for Registration Code</h2>
 				<form class="request-beta">
 					<div class="uk-margin">
 						<input class="uk-input" type="text" placeholder="Email" name="email">
-					</div>
-					<div class="uk-margin">
-						<input class="uk-input" type="textarea" placeholder="Reason" name="reason">
 					</div>
 					<input type="submit" style="display: none;"/>
 				</form>
@@ -283,18 +280,25 @@
 			</form>
 		</li>
 	  <li>
-			<form class="register">
+			{{#if hasCode}}
+				<form class="register">
+					<div class="uk-margin">
+						<input class="uk-input" type="text" placeholder="Username" name="username">
+					</div>
+					<div class="uk-margin">
+						<input class="uk-input" type="text" placeholder="Email" name="email">
+					</div>
+					<div class="uk-margin">
+						<input class="password uk-input" type="password" placeholder="Password" name="password">
+					</div>
+					<input class="uk-button uk-button-danger" type="submit"/>
+				</form>
+				{{else}}
 				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="Username" name="username">
+					You would need a registration code first.
 				</div>
-				<div class="uk-margin">
-					<input class="uk-input" type="text" placeholder="Email" name="email">
-				</div>
-				<div class="uk-margin">
-					<input class="password uk-input" type="password" placeholder="Password" name="password">
-				</div>
-				<input class="uk-button uk-button-danger" type="submit"/>
-			</form>
+			{{/if}}
+
 		</li>
 	</ul>
     </div>

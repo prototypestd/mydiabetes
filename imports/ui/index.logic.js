@@ -15,9 +15,16 @@ Template.index.onRendered(function() {
 });
 
 Template.index.helpers({
-    	strength() {
+  strength() {
 		return Session.get('index/pass/strength');
-	}
+	},
+  hasCode(){
+    if(FlowRouter.getParam('token') != null){
+      console.log(FlowRouter.getParam('token'));
+      return true;
+    }
+    return false;
+  }
 });
 
 Template.index.events({
@@ -26,7 +33,7 @@ Template.index.events({
 
 		const target = event.target;
 		const email = target.email.value;
-		const reason = target.reason.value;
+    const reason = 'test';
 
 		Meteor.call('beta.addToInvites', email, reason, function(error, result) {
 			if(error){
@@ -114,3 +121,11 @@ Template.login.events({
 
 	}
 });
+
+function isBetaCode(){
+  if(Session.get('beta_token')){
+    console.log('test');
+    return true;
+  }
+  return false;
+}
